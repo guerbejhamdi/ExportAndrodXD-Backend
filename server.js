@@ -6,9 +6,8 @@ var fs  = require('fs');
 const bodyParser = require("body-parser");
 
 
-var dirPath = __dirname + "/../public/xmlfiles/desingtocode.xml";
+var dirPath = __dirname + "/../public/xmlfiles/desingtocode";
 var dirPathLog = __dirname + "/../public/xmlfiles/logs.txt";
-
 
 
 //Here we are configuring express to use body-parser as middle-ware.
@@ -27,8 +26,7 @@ app.get("/ExportToXml",(req,res)=>{
     console.log("PROTOCOL"+req.protocol);
     console.log("URL"+req.url);
 
-
-    //
+    //Fixing space problem
     const escapeFunc = function(str) {
         return str.replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
@@ -61,9 +59,12 @@ doc.att('android:id', '@+id/simpleButton')
 });
 
 //console.log(doc.toString({ pretty: true }));
+
+//init xml file
 var xmldoc = doc.toString({ pretty: true }); 
-//
-fs.writeFile(dirPath, xmldoc, function(err) {
+
+//Writing file to dir
+fs.writeFile(dirPath+"5"+".xml", xmldoc, function(err) {
 
     if(err) { return console.log(err); } 
 
@@ -89,11 +90,9 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 
 //
 //
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write('ExportAndroXD Listening...!');
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write('<h2>ExportAndroXD Listening...!</h2>');
     res.status(200).end();
-    
-
 
 });
 
@@ -101,7 +100,7 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 
 app.post('/post', function (req, res) {
    
-    console.log("Request Data : \n"+JSON.stringify(req.body));
+    console.log("Request Data : \n" .yellow.underline.bold+JSON.stringify(req.body));
 return res.status(200).json({
     data : req.body
 })
