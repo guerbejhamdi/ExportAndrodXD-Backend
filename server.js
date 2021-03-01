@@ -3,14 +3,24 @@ const app = express()
 const colors = require('colors');
 var builder = require('xmlbuilder');
 var fs  = require('fs');
+const bodyParser = require("body-parser");
+
+
 var dirPath = __dirname + "/../public/xmlfiles/desingtocode.xml";
+var dirPathLog = __dirname + "/../public/xmlfiles/logs.txt";
+
+
+
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 
 var http = require('http');
 
 const port = process.env.PORT || 3000;
 
-app.get("/",(req,res)=>{
+app.get("/ExportToXml",(req,res)=>{
     console.log(req.headers);
     console.log("HOSTNAME : "+req.hostname);
     console.log("METHOD"+req.method);
@@ -44,7 +54,8 @@ doc.att('android:id', '@+id/simpleButton')
 .att('android:layout_width', 'wrap_content')
 .att('android:layout_height', 'wrap_content')
 .att('android:text', 'Test')
-.end({ pretty: true,
+.end({ 
+    pretty: true,
     newline: "\r\n",
     dontPrettyTextNodes: true,
 });
@@ -64,6 +75,20 @@ fs.writeFile(dirPath, xmldoc, function(err) {
 
 
 //
+var logResult = JSON.stringify(req.headers) +"\n"+ req.hostname +"\n"+ req.method +"\n"+ req.protocol +"\n"+ req.url;
+//SAVING LOG FILE
+fs.writeFile(dirPathLog, logResult , function(err) {
+
+    if(err) { return console.log(err); } 
+
+    console.log("Log file was saved!".green.underline.bold);
+
+  //  res.render('index', { title: 'Generate XML using NodeJS' });
+
+  }); 
+
+//
+//
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.write('ExportAndroXD Listening...!');
     res.status(200).end();
@@ -71,5 +96,15 @@ fs.writeFile(dirPath, xmldoc, function(err) {
 
 
 });
+
+
+
+app.post('/post', function (req, res) {
+   
+    console.log("Request Data : \n"+JSON.stringify(req.body));
+return res.status(200).json({
+    data : req.body
+})
+  });
 
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));
