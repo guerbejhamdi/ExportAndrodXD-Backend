@@ -1,0 +1,17 @@
+{
+  "name": "Backend_Server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js",
+    "colors": "^1.4.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "xmlbuilder": "^15.1.1"
+  }
+}
