@@ -100,6 +100,18 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 
   }); 
 
+  //Testing to read json file 
+
+
+
+fs.readFile('credentials.json', (err, data) => {
+    if (err) throw err;
+    let test = JSON.parse(data);
+    console.log(test.installed.client_id);
+});
+
+console.log('This is after the read call');
+
 //testing widgets calls
 
     new Button().GenerateWidget(); 
@@ -132,6 +144,9 @@ return res.status(200).json({
    console.log(globalBuilderXmlDocPretty);
    res.send('Got a POST request from the buildere');
 });  
+
+
+
 
 
 //Testing get request before applying global changes!
