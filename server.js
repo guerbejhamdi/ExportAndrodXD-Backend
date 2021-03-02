@@ -4,6 +4,8 @@ const colors = require('colors');
 var builder = require('xmlbuilder');
 var fs  = require('fs');
 const bodyParser = require("body-parser");
+const XmlBuilder = require('./Utils/XmlBuilder');
+const logger = require('./Utils/Logger');
 
 
 var dirPath = __dirname + "/../public/xmlfiles/desingtocode.xml";
@@ -77,15 +79,22 @@ fs.writeFile(dirPath, xmldoc, function(err) {
 
   }); 
 
+  //TRYING TO USER LOGGE
+  logger.info(logResult);
+
 
 //
 var logResult = JSON.stringify(req.headers) +"\n"+ req.hostname +"\n"+ req.method +"\n"+ req.protocol +"\n"+ req.url;
 //SAVING LOG FILE
+  //TRYING TO USER LOGGER
+
 fs.writeFile(dirPathLog, logResult , function(err) {
 
     if(err) { return console.log(err); } 
 
-    console.log("Log file was saved!".green.underline.bold);
+    console.log("Simple Log file was saved!".green.underline.bold);
+    logger.info(logResult);
+    console.log("Advanced Log file was saved!".green.underline.bold);
 
   //  res.render('index', { title: 'Generate XML using NodeJS' });
 
@@ -113,5 +122,15 @@ return res.status(200).json({
     data : req.body
 })
   });
+
+
+
+  app.post('/builder', function (req, res) {
+   // console.log("Request Data : \n" .yellow.underline.bold+JSON.stringify(req.body));
+   //new XmlBuilder()
+   new TextView().GenerateWidget(); 
+   console.log(globalBuilderXmlDocPretty);
+   res.send('Got a POST request from the buildere');
+});  
 
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));

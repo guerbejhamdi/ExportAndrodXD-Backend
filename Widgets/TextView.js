@@ -12,6 +12,9 @@ class TextView extends Widget{
 
     GenerateWidget() {
         console.log("Generating TextView Widget Called!");
+        globalBuilderDoc.att('android:TextViewTest', 'TextViewWidget Called!')
+        global.globalBuilderXmlDocPretty = globalBuilderDoc.toString({ pretty: true });
+
       }
     
 
