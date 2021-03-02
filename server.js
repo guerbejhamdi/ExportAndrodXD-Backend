@@ -133,4 +133,10 @@ return res.status(200).json({
    res.send('Got a POST request from the buildere');
 });  
 
+
+//Testing get request before applying global changes!
+
+
+//
+
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));
