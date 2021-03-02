@@ -8,8 +8,8 @@ const XmlBuilder = require('./Utils/XmlBuilder');
 const logger = require('./Utils/Logger');
 
 
-var dirPath = __dirname + "/../public/xmlfiles/desingtocode.xml";
-var dirPathLog = __dirname + "/../public/xmlfiles/logs.txt";
+var dirPath = __dirname + "/public/xmlfiles/desingtocode.xml";
+var dirPathLog = __dirname + "/public/xmlfiles/logs.txt";
 
 
 //Here we are configuring express to use body-parser as middle-ware.
@@ -107,8 +107,55 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 fs.readFile('credentials.json', (err, data) => {
     if (err) throw err;
     let test = JSON.parse(data);
-    console.log(test.installed.client_id);
+    console.log(test.installed.client_id.yellow.underline.bold);
+    var js2xmlparser = require("js2xmlparser");
+    var obj = data ;
+    console.log(js2xmlparser.parse("person", obj));
 });
+
+/*var js2xmlparser = require("js2xmlparser");
+ 
+var obj = {
+    "firstName": "John",
+    "lastName": "Smith",
+    "dateOfBirth": new Date(1964, 7, 26),
+    "address": {
+        "@": {
+            "type": "home"
+        },
+        "streetAddress": "3212 22nd St",
+        "city": "Chicago",
+        "state": "Illinois",
+        "zip": 10000
+    },
+    "phone": [
+        {
+            "@": {
+                "type": "home"
+            },
+            "#": "123-555-4567"
+        },
+        {
+            "@": {
+                "type": "cell"
+            },
+            "#": "890-555-1234"
+        },
+        {
+            "@": {
+                "type": "work"
+            },
+            "#": "567-555-8901"
+        }
+    ],
+    "email": "john@smith.com"
+};
+ 
+console.log(js2xmlparser.parse("person", obj));*/
+
+
+
+
 
 console.log('This is after the read call');
 
