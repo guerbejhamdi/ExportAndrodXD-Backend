@@ -17,6 +17,8 @@ app.use(bodyParser.json());
 
 var http = require('http');
 const Button = require('./Widgets/Button');
+const EditText = require('./Widgets/EditText');
+const TextView = require('./Widgets/TextView');
 
 const port = process.env.PORT || 3000;
 
@@ -92,6 +94,8 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 //testing widget call
 
 new Button().GenerateWidget(); 
+new EditText().GenerateWidget(); 
+new TextView().GenerateWidget(); 
 
 //
     res.writeHead(200, {'Content-Type': 'text/html'});

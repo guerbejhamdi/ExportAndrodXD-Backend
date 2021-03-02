@@ -2,16 +2,16 @@ const Widget = require('../Widgets/Widget');
 var builder = require('xmlbuilder');
 
 /**
- * Button.
+ * TextView.
  *
- * @class Button
+ * @class TextView
  * @extends {Widget}
  */
-class Button extends Widget{
+class TextView extends Widget{
     
 
     GenerateWidget() {
-        console.log("Generating Button Widget Called!");
+        console.log("Generating TextView Widget Called!");
       }
     
 
@@ -19,4 +19,4 @@ class Button extends Widget{
 
 
 
-module.exports = Button
+module.exports = TextView
