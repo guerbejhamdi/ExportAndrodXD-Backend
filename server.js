@@ -6,7 +6,7 @@ var fs  = require('fs');
 const bodyParser = require("body-parser");
 
 
-var dirPath = __dirname + "/../public/xmlfiles/desingtocode";
+var dirPath = __dirname + "/../public/xmlfiles/desingtocode.xml";
 var dirPathLog = __dirname + "/../public/xmlfiles/logs.txt";
 
 
@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 
 
 var http = require('http');
+const Button = require('./Widgets/Button');
 
 const port = process.env.PORT || 3000;
 
@@ -64,7 +65,7 @@ doc.att('android:id', '@+id/simpleButton')
 var xmldoc = doc.toString({ pretty: true }); 
 
 //Writing file to dir
-fs.writeFile(dirPath+"5"+".xml", xmldoc, function(err) {
+fs.writeFile(dirPath, xmldoc, function(err) {
 
     if(err) { return console.log(err); } 
 
@@ -88,7 +89,10 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 
   }); 
 
-//
+//testing widget call
+
+new Button().GenerateWidget(); 
+
 //
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write('<h2>ExportAndroXD Listening...!</h2>');
