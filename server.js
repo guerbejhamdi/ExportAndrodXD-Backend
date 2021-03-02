@@ -91,11 +91,11 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 
   }); 
 
-//testing widget call
+//testing widgets calls
 
-new Button().GenerateWidget(); 
-new EditText().GenerateWidget(); 
-new TextView().GenerateWidget(); 
+    new Button().GenerateWidget(); 
+    new EditText().GenerateWidget(); 
+    new TextView().GenerateWidget(); 
 
 //
     res.writeHead(200, {'Content-Type': 'text/html'});
