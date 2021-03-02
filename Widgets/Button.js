@@ -12,6 +12,7 @@ class Button extends Widget{
 
     GenerateWidget() {
         console.log("Generating Button Widget Called!");
+        //TODO : Generate Button XML CODE
       }
     
 

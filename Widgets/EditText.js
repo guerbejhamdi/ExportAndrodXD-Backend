@@ -12,6 +12,8 @@ class EditText extends Widget{
 
     GenerateWidget() {
         console.log("Generating EditText Widget Called!");
+        //TODO : Generate EditText XML CODE
+
       }
     
 
