@@ -130,7 +130,7 @@ return res.status(200).json({
    //new XmlBuilder()
    new TextView().GenerateWidget(); 
    console.log(globalBuilderXmlDocPretty);
-   res.send('Got a POST request from the buildere');
+   res.send('Got a POST request from the builder');
 });  
 
 
