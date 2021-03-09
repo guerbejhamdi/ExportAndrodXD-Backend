@@ -41,7 +41,17 @@ app.get("/ExportToXml",(req,res)=>{
             .replace(/\r?\n/g, "\r\n") // normalize newlines
     }
     
-    //
+    //INITING PROJECT
+    
+  //  CloudUtils
+   // CloudUtils.uploadFile(auth)
+    //CloudUtils.uploadFile();
+
+
+
+
+
+
     //TESTING XML BUILDER
 
 
@@ -57,6 +67,9 @@ app.get("/ExportToXml",(req,res)=>{
     doc.att('tools:context', '.MainActivity')
 
     new Button().GenerateWidget(); 
+    //new EditText().GenerateWidget();
+   // new Button().GenerateWidget(); 
+
    // new Button().GenerateWidget(); 
 
     console.log('Generated Button , Updated XML :'.yellow.underline.bold);
@@ -186,8 +199,6 @@ console.log('This is after the read call');
     new EditText().GenerateWidget(); 
     new TextView().GenerateWidget(); 
 
-    
-    
 
 //
     res.writeHead(200, {'Content-Type': 'text/html'});
