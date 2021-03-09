@@ -67,9 +67,9 @@ app.get("/ExportToXml",(req,res)=>{
     doc.att('tools:context', '.MainActivity')
 
     new Button().GenerateWidget(); 
-    //new EditText().GenerateWidget();
+    new EditText().GenerateWidget();
    // new Button().GenerateWidget(); 
-
+    new TextView().GenerateWidget();
    // new Button().GenerateWidget(); 
 
     console.log('Generated Button , Updated XML :'.yellow.underline.bold);

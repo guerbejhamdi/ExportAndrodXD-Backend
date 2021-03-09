@@ -14,8 +14,16 @@ class TextView extends Widget{
          //TODO : Generate TextView XML CODE
 
         console.log("Generating TextView Widget Called!");
-        globalBuilderDoc.att('android:TextViewTest', 'TextViewWidget Called!')
-        global.globalBuilderXmlDocPretty = globalBuilderDoc.toString({ pretty: true });
+        globalBuilderDoc.ele('TextView')
+        .att('android:id', '@+id/text_view_id')
+        .att('android:layout_width', 'match_parent')
+        .att('android:layout_height', 'wrap_content')
+        .att('android:text', 'Tv , Change me')
+        .att('tools:ignore', 'MissingConstraints')
+
+                .up()
+       global.globalBuilderXmlDocPretty = globalBuilderDoc.toString({ pretty: true });
+
 
       }
     
