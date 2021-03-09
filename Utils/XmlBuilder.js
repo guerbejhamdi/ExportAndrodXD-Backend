@@ -12,24 +12,18 @@ const app = express()
     }
  
     var builder = require('xmlbuilder');
-    var doc = builder.create('Button', {
-    encoding: "UTF-8",
-    stringify: {
-        elEscape: escapeFunc,
-    }
-});
+    var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
+
+    doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
+    doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
+    doc.att('xmlns:tools', 'http://schemas.android.com/tools')
+    doc.att('android:layout_width', 'match_parent')
+    doc.att('android:layout_height', 'match_parent')
+    doc.att('android:layout_height', 'match_parent')
+    doc.att('tools:context', '.MainActivity')
 
 
-//Testing before using the request data
-doc.att('android:id', '@+id/simpleButton')
-.att('android:layout_width', 'wrap_content')
-.att('android:layout_height', 'wrap_content')
-.att('android:text', 'Test')
-.end({ 
-    pretty: true,
-    newline: "\r\n",
-    dontPrettyTextNodes: true,
-});
+
 global.globalBuilderXmlDocPretty;
 global.globalBuilderDoc = doc;
 //global.globalBuilderXmlDocPretty = doc.toString({ pretty: true });

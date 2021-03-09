@@ -8,9 +8,9 @@ const XmlBuilder = require('./Utils/XmlBuilder');
 const logger = require('./Utils/Logger');
 
 
-var dirPath = __dirname + "/public/xmlfiles/desingtocode.xml";
-var dirPathLog = __dirname + "/public/xmlfiles/logs.txt";
-
+var dirPath = __dirname + "/../public/xmlfiles/desingtocode.xml";
+var dirPathLog = __dirname + "/../public/xmlfiles/logs.txt";
+var dirPastPath = __dirname + "/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/desingtocode.xml";
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,6 +44,40 @@ app.get("/ExportToXml",(req,res)=>{
     //
     //TESTING XML BUILDER
 
+
+    var builder = require('xmlbuilder');
+    var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
+
+    doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
+    doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
+    doc.att('xmlns:tools', 'http://schemas.android.com/tools')
+    doc.att('android:layout_width', 'match_parent')
+    doc.att('android:layout_height', 'match_parent')
+    doc.att('android:layout_height', 'match_parent')
+    doc.att('tools:context', '.MainActivity')
+
+    new Button().GenerateWidget(); 
+   // new Button().GenerateWidget(); 
+
+    console.log('Generated Button , Updated XML :'.yellow.underline.bold);
+    console.log(globalBuilderXmlDocPretty);
+ 
+
+   /* doc.ele('Button')
+    .att('android:id', '@+id/simpleButton')
+    .att('android:layout_width', 'wrap_content')
+    .att('android:layout_height', 'wrap_content')
+    .att('android:text', 'Test')
+    .att('tools:ignore','MissingConstraints')
+            .up()/*
+      
+    
+    console.log(doc.toString({ pretty: true }));
+    
+
+//NA7I COMMENT MENEHNEE
+
+/*
     var builder = require('xmlbuilder');
     var doc = builder.create('Button', {
     encoding: "UTF-8",
@@ -52,35 +86,61 @@ app.get("/ExportToXml",(req,res)=>{
     }
 });
 
+//TEST
+
+
 //Testing before using the request data
 doc.att('android:id', '@+id/simpleButton')
 .att('android:layout_width', 'wrap_content')
 .att('android:layout_height', 'wrap_content')
 .att('android:text', 'Test')
+.att('tools:ignore','MissingConstraints')
 .end({ 
     pretty: true,
     newline: "\r\n",
     dontPrettyTextNodes: true,
 });
 
+
+
+
+
+*/
+//LEHNEEEE
+
 //console.log(doc.toString({ pretty: true }));
 
 //init xml file
-var xmldoc = doc.toString({ pretty: true }); 
+var xmldoc = globalBuilderXmlDocPretty.toString({ pretty: true }); 
 
 //Writing file to dir
 fs.writeFile(dirPath, xmldoc, function(err) {
 
     if(err) { return console.log(err); } 
-
     console.log("The xml file was saved!".blue.underline.bold);
 
   //  res.render('index', { title: 'Generate XML using NodeJS' });
+  
+
+  
+ //COPYING FILES AFTER GENERATION
+ 
+ fs.copyFile(dirPath, dirPastPath, (err) => {
+    if (err) throw err;
+    console.log(dirPath);
+    console.log(dirPastPath);
+
+    console.log('XML was copied to project layout folder!'.blue.underline.bold );
+  });
+
 
   }); 
 
-  //TRYING TO USER LOGGE
+  //TRYING TO USER LOGGER
   logger.info(logResult);
+ 
+
+  //
 
 
 //
@@ -107,51 +167,12 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 fs.readFile('credentials.json', (err, data) => {
     if (err) throw err;
     let test = JSON.parse(data);
-    console.log(test.installed.client_id.yellow.underline.bold);
+    //console.log(test);
     var js2xmlparser = require("js2xmlparser");
     var obj = data ;
-    console.log(js2xmlparser.parse("person", obj));
+   // console.log(js2xmlparser.parse("person", obj));
 });
 
-/*var js2xmlparser = require("js2xmlparser");
- 
-var obj = {
-    "firstName": "John",
-    "lastName": "Smith",
-    "dateOfBirth": new Date(1964, 7, 26),
-    "address": {
-        "@": {
-            "type": "home"
-        },
-        "streetAddress": "3212 22nd St",
-        "city": "Chicago",
-        "state": "Illinois",
-        "zip": 10000
-    },
-    "phone": [
-        {
-            "@": {
-                "type": "home"
-            },
-            "#": "123-555-4567"
-        },
-        {
-            "@": {
-                "type": "cell"
-            },
-            "#": "890-555-1234"
-        },
-        {
-            "@": {
-                "type": "work"
-            },
-            "#": "567-555-8901"
-        }
-    ],
-    "email": "john@smith.com"
-};
- 
-console.log(js2xmlparser.parse("person", obj));*/
 
 
 
@@ -165,12 +186,18 @@ console.log('This is after the read call');
     new EditText().GenerateWidget(); 
     new TextView().GenerateWidget(); 
 
+    
+    
+
 //
     res.writeHead(200, {'Content-Type': 'text/html'});
     res.write('<h2>ExportAndroXD Listening...!</h2>');
     res.status(200).end();
 
+
 });
+
+
 
 
 
@@ -188,6 +215,7 @@ return res.status(200).json({
    // console.log("Request Data : \n" .yellow.underline.bold+JSON.stringify(req.body));
    //new XmlBuilder()
    new TextView().GenerateWidget(); 
+   console.log('Updated XML :'.yellow.underline.bold);
    console.log(globalBuilderXmlDocPretty);
    res.send('Got a POST request from the builder');
 });  

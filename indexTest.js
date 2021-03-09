@@ -1,6 +1,15 @@
+
+
+
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+var unzip = require('unzip')
+
+
+
+
+
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
@@ -125,4 +134,56 @@ function listFiles(auth) {
         console.log('File Id: ', file.data.id);
     }
     });
+
+
+//TO DELETE LATER
+var fileId = '1CjDR67pphzEMC_EFCysvthps8TCDiXR9';
+var dest = fs.createWriteStream('./GeneratedProjects/AutoGen.zip');
+
+drive.files.get({fileId: fileId, alt: 'media'}, {responseType: 'stream'},
+function(err, res){
+    res.data
+    .on('end', () => {
+        console.log('Android Project Downloaded');
+        fs.createReadStream('./GeneratedProjects/AutoGen.zip').pipe(unzip.Extract({ path: './GeneratedProjects/UnzippedProject' }));
+
+       
+    })
+    .on('error', err => {
+        console.log('Error', err);
+    })
+    .pipe(dest);
 }
+);
+
+
+}
+
+
+
+function downloadGenProject(auth) {
+
+  var fileId = '1CjDR67pphzEMC_EFCysvthps8TCDiXR9';
+  var dest = fs.createWriteStream('./GeneratedProjects/AutoGen.zip');
+  
+  drive.files.get({fileId: fileId, alt: 'media'}, {responseType: 'stream'},
+  function(err, res){
+      res.data
+      .on('end', () => {
+          console.log('Android Project Downloaded');
+          fs.createReadStream('./GeneratedProjects/AutoGen.zip').pipe(unzip.Extract({ path: './GeneratedProjects/UnzippedProject' }));
+
+         
+      })
+      .on('error', err => {
+          console.log('Error', err);
+      })
+      .pipe(dest);
+  }
+  );
+  
+}
+
+
+
+
