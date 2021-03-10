@@ -27,7 +27,10 @@ class TextView extends Widget{
 
       }
     
+      Parsejsontoxml(element) {
+        console.log("TextView");
 
+    }
 }
 
 

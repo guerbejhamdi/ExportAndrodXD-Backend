@@ -8,8 +8,8 @@ const XmlBuilder = require('./Utils/XmlBuilder');
 const logger = require('./Utils/Logger');
 
 
-var dirPath = __dirname + "/../public/xmlfiles/desingtocode.xml";
-var dirPathLog = __dirname + "/../public/xmlfiles/logs.txt";
+var dirPath = __dirname + "/public/xmlfiles/desingtocode.xml";
+var dirPathLog = __dirname + "/public/xmlfiles/logs.txt";
 var dirPastPath = __dirname + "/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/desingtocode.xml";
 
 //Here we are configuring express to use body-parser as middle-ware.
@@ -65,6 +65,12 @@ app.get("/ExportToXml",(req,res)=>{
     doc.att('android:layout_height', 'match_parent')
     doc.att('android:layout_height', 'match_parent')
     doc.att('tools:context', '.MainActivity')
+
+    fs.readFile('jsonExemple.json', (err, data) => {
+      if (err) throw err;
+      let test = JSON.parse(data);
+      console.log(test.users.firstName);
+    })
 
     new Button().GenerateWidget(); 
     new EditText().GenerateWidget();
@@ -177,14 +183,36 @@ fs.writeFile(dirPathLog, logResult , function(err) {
 
 
 
-fs.readFile('credentials.json', (err, data) => {
+fs.readFile('testtest.json', (err, data) => {
     if (err) throw err;
     let test = JSON.parse(data);
-    //console.log(test);
+    test.ArtBoard[0].children.forEach(element=>{
+      ParseByAndroidClass(element,element[".class"])
+              
+         })
+         
+      
+      
+      
     var js2xmlparser = require("js2xmlparser");
     var obj = data ;
    // console.log(js2xmlparser.parse("person", obj));
 });
+function ParseByAndroidClass(element,typeWidget) {
+  if(typeWidget=="Button"){
+       new Button().Parsejsontoxml(element); 
+  }else if (typeWidget=="EditText"){
+     new EditText().Parsejsontoxml(element);
+  }else if(typeWidget=="TextView"){ 
+     new TextView().Parsejsontoxml(element);
+  }else{
+
+    return {};
+          // let data={};
+          //     data["NOTYPE"]="NOTYPE";
+          // return data;
+        }
+  }
 
 
 

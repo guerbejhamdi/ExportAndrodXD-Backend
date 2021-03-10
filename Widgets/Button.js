@@ -27,6 +27,11 @@ class Button extends Widget{
 
 
       }
+
+      Parsejsontoxml(element) {
+            console.log("Button");
+
+      }
     
 
 }

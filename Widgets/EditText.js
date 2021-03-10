@@ -28,6 +28,10 @@ class EditText extends Widget{
 
       }
     
+      Parsejsontoxml(element) {
+          console.log("EditText");
+
+    }
 
 }
 
