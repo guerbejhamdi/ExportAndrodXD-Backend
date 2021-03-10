@@ -27,9 +27,62 @@ class Button extends Widget{
 
 
       }
+      // ".class": "Button",
+      // ".adobeClass": "Group",
+      // ".id": "btn1",
+      // "text": "BUTTON",
+      // "fontFamily": "Segoe UI",
+      // "fontStyle": "Regular",
+      // "fontSize": 20,
+      // "textColor": 4294011241,
+      // "charSpacing": 0,
+      // "textAlign": "left",
+      // "text-x": 188,
+      // "text-y": 709,
+      // "width": 190,
+      // "height": 49,
+      // "background": 4294011241,
 
+ 
       Parsejsontoxml(element) {
-            console.log("Button");
+      if(element[".adobeClass"]=="Group"){
+            globalBuilderDoc.ele('Button')
+            .att('android:id', '@+id/'+element[".id"])
+            .att('android:layout_width', element["width"]+"dp")
+            .att('android:layout_height', 'wrap_content')
+            .att('android:text',element["text"] )
+            .att('android:textSize',element["fontSize"] )
+            .att('app:layout_constraintStart_toStartOf','parent')
+            .att('app:layout_constraintTop_toTopOf','parent')
+            .att('android:layout_marginStart',element["x"]+"dp")
+            .att('android:layout_marginTop',element["y"]+"dp")
+            .up()
+            // android:layout_marginLeft="40dp"
+            // android:layout_marginTop="8dp"
+
+
+      }else if(element[".adobeClass"]=="Rectangle"){
+            globalBuilderDoc.ele('Button')
+            .att('android:id', '@+id/'+element[".id"])
+            .att('android:layout_width', element["width"]+"dp")
+            .att('android:layout_height', 'wrap_content')
+            .att('android:text',element[".id"])
+            .att('android:textSize',element["fontSize"] )
+            .att('app:layout_constraintStart_toStartOf','parent')
+            .att('app:layout_constraintTop_toTopOf','parent')
+            .att('android:layout_marginStart',element["x"]+"dp")
+            .att('android:layout_marginTop',element["y"]+"dp")
+            .up()
+
+
+      }else {
+
+            console.log("BUGG");
+      }
+
+           
+
+
 
       }
     
