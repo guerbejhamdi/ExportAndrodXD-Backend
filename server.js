@@ -6,11 +6,16 @@ var fs  = require('fs');
 const bodyParser = require("body-parser");
 const XmlBuilder = require('./Utils/XmlBuilder');
 const logger = require('./Utils/Logger');
+const dotenv = require('dotenv');
 
 
-var dirPath = __dirname + "/public/xmlfiles/desingtocode.xml";
-var dirPathLog = __dirname + "/public/xmlfiles/logs.txt";
-var dirPastPath = __dirname + "/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/desingtocode.xml";
+dotenv.config({
+  path: './config/config.env'
+});
+
+var dirPath = __dirname + process.env.DIR_PATH ;
+var dirPathLog = __dirname + process.env.DIR_PATH_LOG;
+var dirPastPath = __dirname + process.env.DIR_PAST_PATH;
 
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -220,6 +225,7 @@ function ParseByAndroidClass(element,typeWidget) {
           //     data["NOTYPE"]="NOTYPE";
           // return data;
         }
+
   }
 
 
