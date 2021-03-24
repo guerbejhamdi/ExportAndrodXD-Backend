@@ -48,17 +48,6 @@ app.get("/ExportToXml",(req,res)=>{
     }
     
     //INITING PROJECT
-    
-  //  CloudUtils
-   // CloudUtils.uploadFile(auth)
-    //CloudUtils.uploadFile();
-
-
-
-
-
-
-    //TESTING XML BUILDER
 
    
     var builder = require('xmlbuilder');
@@ -76,74 +65,33 @@ app.get("/ExportToXml",(req,res)=>{
       if (err) throw err;
       let test = JSON.parse(data);
       test.ArtBoard[0].children.forEach(element=>{
-        
-         new Button().GenerateWidget1(element); 
-        
-        new EditText().GenerateWidget();
+        ParseByAndroidClass(element,element[".class"])
       })
     })
 
+      function ParseByAndroidClass(element,typeWidget) {
+      if(typeWidget=="Button"){
+        console.log("eni bouton");
+          new Button().Parsejsontoxml(element); 
+      }else if (typeWidget=="EditText"){
+        // new EditText().GenerateWidget();
+      }else if(typeWidget=="TextView"){ 
+      //  new TextView().GenerateWidget();
+      }else{
+
+        return {};
+              // let data={};
+              //     data["NOTYPE"]="NOTYPE";
+              // return data;
+            }
+
+      }
+
     
-
-   new Button().GenerateWidget(); 
-    new EditText().GenerateWidget();
-   // new Button().GenerateWidget(); 
-    new TextView().GenerateWidget();
-   // new Button().GenerateWidget(); 
-
-    console.log('Generated Button , Updated XML :'.yellow.underline.bold);
-    console.log(globalBuilderXmlDocPretty);
- 
-
-   /* doc.ele('Button')
-    .att('android:id', '@+id/simpleButton')
-    .att('android:layout_width', 'wrap_content')
-    .att('android:layout_height', 'wrap_content')
-    .att('android:text', 'Test')
-    .att('tools:ignore','MissingConstraints')
-            .up()/*
-      
-    
-    console.log(doc.toString({ pretty: true }));
-    
-
-//NA7I COMMENT MENEHNEE
-
-/*
-    var builder = require('xmlbuilder');
-    var doc = builder.create('Button', {
-    encoding: "UTF-8",
-    stringify: {
-        elEscape: escapeFunc,
-    }
-});
-
-//TEST
-
-
-//Testing before using the request data
-doc.att('android:id', '@+id/simpleButton')
-.att('android:layout_width', 'wrap_content')
-.att('android:layout_height', 'wrap_content')
-.att('android:text', 'Test')
-.att('tools:ignore','MissingConstraints')
-.end({ 
-    pretty: true,
-    newline: "\r\n",
-    dontPrettyTextNodes: true,
-});
-
-
-
-
-
-*/
-//LEHNEEEE
-
-//console.log(doc.toString({ pretty: true }));
-
 //init xml file
-var xmldoc = globalBuilderXmlDocPretty.toString({ pretty: true }); 
+var xmldoc = global.globalBuilderXmlDocPretty.toString({ pretty: true }); 
+
+console.log(xmldoc.toString({ pretty: true }));
 
 //Writing file to dir
 fs.writeFile(dirPath, xmldoc, function(err) {
@@ -152,8 +100,6 @@ fs.writeFile(dirPath, xmldoc, function(err) {
     console.log("The xml file was saved!".blue.underline.bold);
 
   //  res.render('index', { title: 'Generate XML using NodeJS' });
-  
-
   
  //COPYING FILES AFTER GENERATION
  
@@ -170,7 +116,6 @@ fs.writeFile(dirPath, xmldoc, function(err) {
 
   //TRYING TO USER LOGGER
   logger.info(logResult);
- 
 
   //
 
@@ -195,51 +140,13 @@ fs.writeFile(dirPathLog, logResult , function(err) {
   //Testing to read json file 
 
 
-
-fs.readFile('testtest.json', (err, data) => {
-    if (err) throw err;
-    let test = JSON.parse(data);
-    test.ArtBoard[0].children.forEach(element=>{
-      ParseByAndroidClass(element)
-              
-         })
-         
-      
-      
-      
-    var js2xmlparser = require("js2xmlparser");
-    var obj = data ;
-   // console.log(js2xmlparser.parse("person", obj));
-});
-function ParseByAndroidClass(element,typeWidget) {
-  if(typeWidget=="Button"){
-       new Button().GenerateWidget(element); 
-  }else if (typeWidget=="EditText"){
-     new EditText().GenerateWidget();
-  }else if(typeWidget=="TextView"){ 
-     new TextView().GenerateWidget();
-  }else{
-
-    return {};
-          // let data={};
-          //     data["NOTYPE"]="NOTYPE";
-          // return data;
-        }
-
-  }
-
-
-
-
-
-
 console.log('This is after the read call');
 
 //testing widgets calls
 
-    new Button().GenerateWidget(element); 
+   /* new Button().GenerateWidget(element); 
     new EditText().GenerateWidget(); 
-    new TextView().GenerateWidget(); 
+    new TextView().GenerateWidget(); */
 
 
 //
@@ -267,7 +174,7 @@ return res.status(200).json({
   app.post('/builder', function (req, res) {
    // console.log("Request Data : \n" .yellow.underline.bold+JSON.stringify(req.body));
    //new XmlBuilder()
-   new TextView().GenerateWidget(); 
+  // new TextView().GenerateWidget(); 
    console.log('Updated XML :'.yellow.underline.bold);
    console.log(globalBuilderXmlDocPretty);
    res.send('Got a POST request from the builder');

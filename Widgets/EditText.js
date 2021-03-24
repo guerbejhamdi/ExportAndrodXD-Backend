@@ -21,7 +21,6 @@ class EditText extends Widget{
         .att('android:hint', 'Change Me')
         .att('android:gravity', 'center_horizontal')
         .att('tools:ignore', 'MissingConstraints')
-
                 .up()
 
           global.globalBuilderXmlDocPretty = globalBuilderDoc.toString({ pretty: true });

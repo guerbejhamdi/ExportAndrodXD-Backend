@@ -26,7 +26,7 @@ const app = express()
 
 global.globalBuilderXmlDocPretty;
 global.globalBuilderDoc = doc;
-//global.globalBuilderXmlDocPretty = doc.toString({ pretty: true });
+global.globalBuilderXmlDocPretty = doc.toString({ pretty: true });
 
 //console.log(doc.toString({ pretty: true }));
 
