@@ -21,6 +21,7 @@ var http = require('http');
 const Button = require('./Widgets/Button');
 const EditText = require('./Widgets/EditText');
 const TextView = require('./Widgets/TextView');
+const { element } = require('./Utils/XmlBuilder');
 
 const port = process.env.PORT || 3000;
 
@@ -54,7 +55,7 @@ app.get("/ExportToXml",(req,res)=>{
 
     //TESTING XML BUILDER
 
-
+   
     var builder = require('xmlbuilder');
     var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
 
@@ -66,13 +67,20 @@ app.get("/ExportToXml",(req,res)=>{
     doc.att('android:layout_height', 'match_parent')
     doc.att('tools:context', '.MainActivity')
 
-    fs.readFile('jsonExemple.json', (err, data) => {
+    fs.readFile('testtest.json', (err, data) => {
       if (err) throw err;
       let test = JSON.parse(data);
-      console.log(test.users.firstName);
+      test.ArtBoard[0].children.forEach(element=>{
+        
+         new Button().GenerateWidget1(element); 
+        
+        new EditText().GenerateWidget();
+      })
     })
 
-    new Button().GenerateWidget(); 
+    
+
+   new Button().GenerateWidget(); 
     new EditText().GenerateWidget();
    // new Button().GenerateWidget(); 
     new TextView().GenerateWidget();
@@ -187,7 +195,7 @@ fs.readFile('testtest.json', (err, data) => {
     if (err) throw err;
     let test = JSON.parse(data);
     test.ArtBoard[0].children.forEach(element=>{
-      ParseByAndroidClass(element,element[".class"])
+      ParseByAndroidClass(element)
               
          })
          
@@ -200,11 +208,11 @@ fs.readFile('testtest.json', (err, data) => {
 });
 function ParseByAndroidClass(element,typeWidget) {
   if(typeWidget=="Button"){
-       new Button().Parsejsontoxml(element); 
+       new Button().GenerateWidget(element); 
   }else if (typeWidget=="EditText"){
-     new EditText().Parsejsontoxml(element);
+     new EditText().GenerateWidget();
   }else if(typeWidget=="TextView"){ 
-     new TextView().Parsejsontoxml(element);
+     new TextView().GenerateWidget();
   }else{
 
     return {};
@@ -223,7 +231,7 @@ console.log('This is after the read call');
 
 //testing widgets calls
 
-    new Button().GenerateWidget(); 
+    new Button().GenerateWidget(element); 
     new EditText().GenerateWidget(); 
     new TextView().GenerateWidget(); 
 
