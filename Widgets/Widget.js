@@ -11,6 +11,8 @@ class Widget {
       GenerateWidget(any) {
         throw new Error("Method GenerateWidget must be implemented.");
       }
+
+      
     
 
 

@@ -1,7 +1,7 @@
 {
     "ArtBoard": [
         {
-            "name": "iPhone X, XS, 11 Pro – 1",
+            "name": "test.xml",
             "children": [
                 {
                     ".class": "EditText",
@@ -97,7 +97,7 @@
             ]
         },
         {
-            "name": "iPhone X, XS, 11 Pro – 2",
+            "name": "test2.xml",
             "children": [
                 {
                     ".class": "EditText",

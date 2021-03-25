@@ -26,6 +26,7 @@ var http = require('http');
 const Button = require('./Widgets/Button');
 const EditText = require('./Widgets/EditText');
 const TextView = require('./Widgets/TextView');
+const ArtBoard = require('./Widgets/Artboard');
 const { element } = require('./Utils/XmlBuilder');
 
 const port = process.env.PORT || 3000;
@@ -64,9 +65,15 @@ app.get("/ExportToXml",(req,res)=>{
     fs.readFile('testtest.json', (err, data) => {
       if (err) throw err;
       let test = JSON.parse(data);
-      test.ArtBoard[0].children.forEach(element=>{
-        ParseByAndroidClass(element,element[".class"])
-      })
+    //  test.ArtBoard[0].children.forEach(element=>{
+    //    ParseByAndroidClass(element,element[".class"])
+    //  })
+     test.ArtBoard.forEach(element=>{
+     new ArtBoard().Parsesontoxml(element);
+     // ParseByAndroidClass(element,element[".class"])
+
+
+    })
     })
 
       function ParseByAndroidClass(element,typeWidget) {
@@ -103,13 +110,13 @@ fs.writeFile(dirPath, xmldoc, function(err) {
   
  //COPYING FILES AFTER GENERATION
  
- fs.copyFile(dirPath, dirPastPath, (err) => {
-    if (err) throw err;
-    console.log(dirPath);
-    console.log(dirPastPath);
+//  fs.copyFile(dirPath, dirPastPath, (err) => {
+//     if (err) throw err;
+//     console.log(dirPath);
+//     console.log(dirPastPath);
 
-    console.log('XML was copied to project layout folder!'.blue.underline.bold );
-  });
+//     console.log('XML was copied to project layout folder!'.blue.underline.bold );
+//   });
 
 
   }); 

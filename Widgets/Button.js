@@ -10,9 +10,9 @@ var builder = require('xmlbuilder');
 class Button extends Widget{
    
  
-      Parsejsontoxml(element) {
+      Parsejsontoxml(element,doc) {
       if(element[".adobeClass"]=="Group"){
-            global.globalBuilderDoc.ele('Button')
+            doc.ele('Button')
             .att('android:id', 'test')
            // .att('android:layout_width', element["width"]+"dp")
            // .att('android:layout_height', 'wrap_content')
@@ -25,12 +25,11 @@ class Button extends Widget{
             .up()
             // android:layout_marginLeft="40dp"
             // android:layout_marginTop="8dp"
-            global.globalBuilderXmlDocPretty = globalBuilderDoc.toString({ pretty: true });
-            console.log(globalBuilderXmlDocPretty);
+           
 
 
       }else if(element[".adobeClass"]=="Rectangle"){
-            globalBuilderDoc.ele('Button')
+            doc.ele('Button')
             .att('android:id', '@+id/'+element[".id"])
             .att('android:layout_width', element["width"]+"dp")
             .att('android:layout_height', 'wrap_content')
@@ -41,7 +40,7 @@ class Button extends Widget{
             .att('android:layout_marginStart',element["x"]+"dp")
             .att('android:layout_marginTop',element["y"]+"dp")
             .up()
-            global.globalBuilderXmlDocPretty = globalBuilderDoc.toString({ pretty: true });
+        
 
 
       }else {
