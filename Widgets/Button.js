@@ -13,15 +13,15 @@ class Button extends Widget{
       Parsejsontoxml(element,doc) {
       if(element[".adobeClass"]=="Group"){
             doc.ele('Button')
-            .att('android:id', 'test')
-           // .att('android:layout_width', element["width"]+"dp")
-           // .att('android:layout_height', 'wrap_content')
-           // .att('android:text',element["text"] )
-            //.att('android:textSize',element["fontSize"] )
-           // .att('app:layout_constraintStart_toStartOf','parent')
-           //// .att('app:layout_constraintTop_toTopOf','parent')
-           // .att('android:layout_marginStart',element["x"]+"dp")
-           // .att('android:layout_marginTop',element["y"]+"dp")
+            .att('android:id', '@+id/'+element[".id"])
+           .att('android:layout_width', element["width"]+"dp")
+           .att('android:layout_height', 'wrap_content')
+           .att('android:text',element["text"] )
+            .att('android:textSize',element["fontSize"] )
+           .att('app:layout_constraintStart_toStartOf','parent')
+           .att('app:layout_constraintTop_toTopOf','parent')
+           .att('android:layout_marginStart',element["x"]+"dp")
+           .att('android:layout_marginTop',element["y"]+"dp")
             .up()
             // android:layout_marginLeft="40dp"
             // android:layout_marginTop="8dp"
@@ -43,9 +43,14 @@ class Button extends Widget{
         
 
 
-      }else {
+      }else if(element[".adobeClass"]=="Text") {
 
-            console.log("BUGG");
+            console.log("Not YET ");
+
+      }else{
+
+            console.log("BUGG ON BUTTON");
+
       }
 
            

@@ -27,10 +27,49 @@ class EditText extends Widget{
 
       }
     
-      Parsejsontoxml(element) {
-          console.log("EditText");
-
-    }
+      Parsejsontoxml(element,doc) {
+        if(element[".adobeClass"]=="Group"){
+              doc.ele('EditText')
+              .att('android:id', '@+id/'+element[".id"])
+             .att('android:layout_width', element["width"]+"dp")
+             .att('android:layout_height', 'wrap_content')
+             .att('android:hint',element["hint"] )
+              .att('android:textSize',element["fontSize"] )
+             .att('app:layout_constraintStart_toStartOf','parent')
+             .att('app:layout_constraintTop_toTopOf','parent')
+             .att('android:layout_marginStart',element["x"]+"dp")
+             .att('android:layout_marginTop',element["y"]+"dp")
+              .up()
+              // android:layout_marginLeft="40dp"
+              // android:layout_marginTop="8dp"
+             
+  
+  
+        }else if(element[".adobeClass"]=="Rectangle"){
+              doc.ele('Button')
+              .att('android:id', '@+id/'+element[".id"])
+              .att('android:layout_width', element["width"]+"dp")
+              .att('android:layout_height', 'wrap_content')
+              .att('android:textSize',element["fontSize"] )
+              .att('app:layout_constraintStart_toStartOf','parent')
+              .att('app:layout_constraintTop_toTopOf','parent')
+              .att('android:layout_marginStart',element["x"]+"dp")
+              .att('android:layout_marginTop',element["y"]+"dp")
+              .up()
+          
+  
+  
+        }else {
+  
+              console.log("BUGG ON EDITTEXT");
+        }
+  
+             
+  
+  
+  
+        }
+  
 
 }
 
