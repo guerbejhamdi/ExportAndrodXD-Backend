@@ -34,11 +34,11 @@ class TextView extends Widget{
              .att('android:layout_width','wrap_content')
              .att('android:layout_height', 'wrap_content')
              .att('android:text',element["text"] )
-             .att('android:textSize',element["fontSize"] )
+             .att('android:textSize',element["fontSize"]+"dp" )
               
 
 
-             .att('android:textColor',element["textColor"].toString(16) )
+             .att('android:textColor',"#"+element["textColor"].toString(16) )
              .att('android:letterSpacing',element["charSpacing"] )
              .att('android:gravity',element["textAlign"] )
 
