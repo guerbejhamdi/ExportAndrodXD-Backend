@@ -1,7 +1,19 @@
 const Widget = require('../Widgets/Widget');
 var builder = require('xmlbuilder');
+const dotenv = require('dotenv');
+
 var fs  = require('fs');
 const Utils = require('../Utils/Utils');
+
+
+var dirCopyPath = __dirname + process.env.DIR_COPYPATH ;
+var dirPastPath = __dirname + process.env.DIR_PAST_PATH;
+var dirPastLivePath = __dirname + process.env.DIR_PASTLIVE_PATH;
+
+dotenv.config({
+    path: './config/config.env'
+  });
+  
 
 /**
  * ArtBoard.
@@ -43,7 +55,7 @@ class ArtBoard extends Widget{
             if(err) { return console.log(err); } 
             console.log("The xml file was saved!".blue.underline.bold);
 
-
+       
 
         
           }); 

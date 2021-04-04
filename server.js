@@ -17,6 +17,7 @@ var dirPath = __dirname + process.env.DIR_PATH ;
 var dirPathLog = __dirname + process.env.DIR_PATH_LOG;
 var dirPastPath = __dirname + process.env.DIR_PAST_PATH;
 
+
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -31,7 +32,7 @@ const { element } = require('./Utils/XmlBuilder');
 
 const port = process.env.PORT || 3000;
 
-app.get("/ExportToXml",(req,res)=>{
+app.post("/ExportToXml",(req,res)=>{
     console.log(req.headers);
     console.log("HOSTNAME : "+req.hostname);
     console.log("METHOD"+req.method);
@@ -62,7 +63,7 @@ app.get("/ExportToXml",(req,res)=>{
     doc.att('android:layout_height', 'match_parent')
     doc.att('tools:context', '.MainActivity')
 
-    fs.readFile('testtest.json', (err, data) => {
+  /*  fs.readFile('testtest.json', (err, data) => {
       if (err) throw err;
       let test = JSON.parse(data);
     //  test.ArtBoard[0].children.forEach(element=>{
@@ -72,9 +73,25 @@ app.get("/ExportToXml",(req,res)=>{
      new ArtBoard().Parsesontoxml(element);
      // ParseByAndroidClass(element,element[".class"])
 
+      console.log(req.body);
+    })
+    })*/
 
-    })
-    })
+
+
+    //testing from request
+
+        data = req.body
+        let test = JSON.parse(JSON.stringify(data));
+       test.ArtBoard.forEach(element=>{
+       new ArtBoard().Parsesontoxml(element);
+  
+  
+      })
+      
+      
+
+    //
 
       function ParseByAndroidClass(element,typeWidget) {
       if(typeWidget=="Button"){
