@@ -55,7 +55,14 @@ class ArtBoard extends Widget{
             if(err) { return console.log(err); } 
             console.log("The xml file was saved!".blue.underline.bold);
 
-       
+                //COPYING FILES AFTER GENERATION
+        
+          fs.copyFile(dirCopyPath+artBoard["name"], dirPastLivePath+artBoard["name"], (err) => {
+             if (err) throw err;
+             console.log(dirCopyPath);
+             console.log(dirPastLivePath+artBoard["name"]);
+             console.log('XML was copied to project layout folder!'.blue.underline.bold );
+           });
 
         
           }); 

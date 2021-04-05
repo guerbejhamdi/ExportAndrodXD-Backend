@@ -7,10 +7,6 @@ const {google} = require('googleapis');
 var unzip = require('unzip')
 
 
-
-
-
-
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/drive'];
 // The file token.json stores the user's access and refresh tokens, and is
@@ -113,14 +109,14 @@ function listFiles(auth) {
    function uploadFile(auth) {
     const drive = google.drive({version: 'v3', auth});
     const fileMetadata = {
-    'name': 'designtocode.xml',
+    'name': 'GeneratedProject.zip',
     parents: ['1wE8SDJ-nkH9Xy8R9WuhbPCtRJuVbT2-J'],
     'response': 'file.id'
 
     };
     const media = {
-    mimeType: 'application/xml',
-    body: fs.createReadStream('/../PIM/public/xmlfiles/desingtocode.xml')
+    mimeType: 'application/zip',
+    body: fs.createReadStream('./GeneratedProject.zip')
     };
     drive.files.create({
     resource: fileMetadata,
@@ -132,8 +128,26 @@ function listFiles(auth) {
         console.error(err);
     } else {
         console.log('File Id: ', file.data.id);
+        drive.permissions.create({
+          fileId: file.data.id,
+          requestBody: {
+            role: 'reader',
+            type: 'anyone',
+          }
+        });
+
+        const webViewLink =  drive.files.get({
+          fileId: file.data.id,
+          fields: 'webViewLink'
+      }).then(response => 
+        console.log(response.data.webViewLink)
+      );
+      
+      
     }
     });
+
+    
 
 
 //TO DELETE LATER
@@ -161,9 +175,7 @@ function(err, res){
 
 
 
-function downloadGenProject(auth) {
-
-  var fileId = '1CjDR67pphzEMC_EFCysvthps8TCDiXR9';
+  /*var fileId = '1CjDR67pphzEMC_EFCysvthps8TCDiXR9';
   var dest = fs.createWriteStream('./GeneratedProjects/AutoGen.zip');
   
   drive.files.get({fileId: fileId, alt: 'media'}, {responseType: 'stream'},
@@ -180,9 +192,9 @@ function downloadGenProject(auth) {
       })
       .pipe(dest);
   }
-  );
+  );*/
   
-}
+
 
 
 

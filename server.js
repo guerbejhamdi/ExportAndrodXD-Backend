@@ -9,6 +9,10 @@ const logger = require('./Utils/Logger');
 const dotenv = require('dotenv');
 
 
+//
+var archiver = require('archiver');
+
+
 dotenv.config({
   path: './config/config.env'
 });
@@ -212,5 +216,43 @@ return res.status(200).json({
 
 
 //
+
+
+
+
+app.get('/GetProject', function(req,res){
+
+
+  var output = fs.createWriteStream('GeneratedProject.zip');
+  var archive = archiver('zip');
+  
+  output.on('close', function () {
+      console.log(archive.pointer() + ' total bytes');
+      console.log('archiver has been finalized and the output file descriptor has closed.');
+  });
+  
+  archive.on('error', function(err){
+      throw err;
+  });
+  
+  archive.pipe(output);
+  
+  // append files from a sub-directory, putting its contents at the root of archive
+  //archive.directory(source_dir, false);
+  
+  // append files from a sub-directory and naming it `new-subdir` within the archive
+  archive.directory('./GeneratedProjects/UnzippedProject/AutoGen/', false);
+
+  
+  archive.finalize();
+
+//uploading here
+
+
+
+
+  res.send('Request to get a project');
+
+});
 
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));
