@@ -3,6 +3,7 @@
 const Button = require('../Widgets/Button');
 const EditText = require('../Widgets/EditText');
 const TextView = require('../Widgets/TextView');
+const ImageView = require('../Widgets/ImageView');
 
 
 class Utils{
@@ -19,7 +20,12 @@ static ParseByAndroidClass(element,typeWidget,doc) {
       console.log("eni TextView");
       new TextView().Parsejsontoxml(element,doc); 
     //  new TextView().GenerateWidget();
-    }else{
+    }else if(typeWidget=="ImageView"){ 
+      console.log("eni ImageView");
+      new ImageView().Parsejsontoxml(element,doc); 
+    }
+    
+    else{
 
       return {};
             // let data={};
