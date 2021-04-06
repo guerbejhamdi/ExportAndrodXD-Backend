@@ -143,7 +143,7 @@ function generateProject(auth) {
     /**
     * Describe with given media and metaData and upload it using google.drive.create method()
     */ 
-      function uploadFile(auth) {
+     async function uploadFile(auth) {
       const drive = google.drive({version: 'v3', auth});
       const fileMetadata = {
       'name': 'GeneratedProject.zip',
@@ -159,7 +159,7 @@ function generateProject(auth) {
       resource: fileMetadata,
       media: media,
       fields: 'id'
-      }, (err, file) => {
+      },async (err, file) => {
       if (err) {
           // Handle error
           console.error(err);
@@ -173,14 +173,17 @@ function generateProject(auth) {
             }
           });
   
-          const webViewLink =  drive.files.get({
+          const webViewLink =  await drive.files.get({
             fileId: file.data.id,
             fields: 'webViewLink'
-        }).then(response => { 
-          response.data.webViewLink
-          console.log(response.data.webViewLink)
-        }
-        );
+        })
+        webViewLink.data.webViewLink
+          console.log(webViewLink.data.webViewLink)
+          
+        
+        
+        
+
         
 
       }
@@ -214,6 +217,7 @@ const EditText = require('./Widgets/EditText');
 const TextView = require('./Widgets/TextView');
 const ArtBoard = require('./Widgets/Artboard');
 const { element } = require('./Utils/XmlBuilder');
+const { auth } = require('googleapis/build/src/apis/abusiveexperiencereport');
 
 const port = process.env.PORT || 3000;
 
@@ -459,9 +463,10 @@ fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Drive API.
   authorize(JSON.parse(content),uploadFile);
+
  // console.log(test)
 
-  res.send('ok');
+  res.send('the link will be here soon');
 });
 
 
