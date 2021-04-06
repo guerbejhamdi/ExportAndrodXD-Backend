@@ -177,8 +177,13 @@ function generateProject(auth) {
             fileId: file.data.id,
             fields: 'webViewLink'
         })
-        webViewLink.data.webViewLink
+        test2 = webViewLink.data.webViewLink
           console.log(webViewLink.data.webViewLink)
+         ikhdem= JSON.parse(JSON.stringify(test2))
+         fs.writeFileSync('drivelink.txt', ikhdem);
+
+          
+          
           
         
         
@@ -463,14 +468,24 @@ fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Drive API.
   authorize(JSON.parse(content),uploadFile);
+  
 
- // console.log(test)
+ 
 
-  res.send('the link will be here soon');
+  
 });
 
 
-//
+
+
+
+try {
+  var dataa = fs.readFileSync('drivelink.txt','utf-8');
+  console.log(dataa);
+} catch (error) {
+  
+}
+res.send(dataa);
 
 
 
