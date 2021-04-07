@@ -53,8 +53,8 @@ class EditText extends Widget{
               .att('android:textSize',element["fontSize"]+"dp" )
               .att('app:layout_constraintStart_toStartOf','parent')
               .att('app:layout_constraintTop_toTopOf','parent')
-              .att('android:layout_marginStart',element["x"]+"dp")
-              .att('android:layout_marginTop',element["y"]+"dp")
+              .att('android:layout_marginStart',element["test-x"]+"dp")
+              .att('android:layout_marginTop',element["test-y"]+"dp")
               .up()
           
   
