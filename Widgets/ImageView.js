@@ -30,13 +30,11 @@ class ImageView extends Widget{
         if(element[".adobeClass"]=="Rectangle"){
               doc.ele('ImageView')
               .att('android:id', '@+id/'+element[".id"])
-             .att('android:layout_width',+element["width"])
-             .att('android:layout_height', +element["height"])
+             .att('android:layout_width',+element["width"]+"dp")
+             .att('android:layout_height', +element["height"]+"dp")
              .att('android:src', '@drawable/'+element[".id"])
              .att('app:layout_constraintStart_toStartOf','parent')
              .att('app:layout_constraintTop_toTopOf','parent')
-             .att('android:layout_marginStart',element["x"]+"dp")
-             .att('android:layout_marginTop',element["y"]+"dp")
               .up()
 
            

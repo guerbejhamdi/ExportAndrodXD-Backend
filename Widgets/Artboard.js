@@ -35,7 +35,10 @@ class ArtBoard extends Widget{
         doc.att('android:layout_height', 'match_parent')
         doc.att('android:layout_height', 'match_parent')
         doc.att('tools:context', '.MainActivity')
-        
+        if(artBoard["background"]!=null){
+          doc.att('android:background', "#"+artBoard["background"].toString(16))
+        }
+
 
 
       doc.toString({ pretty: true })
