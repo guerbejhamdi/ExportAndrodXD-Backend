@@ -11,6 +11,7 @@ const dotenv = require('dotenv');
 const readline = require('readline');
 const {google} = require('googleapis');
 var unzip = require('unzip')
+const child_process = require("child_process");
 
 
 //
@@ -143,7 +144,7 @@ function generateProject(auth) {
     /**
     * Describe with given media and metaData and upload it using google.drive.create method()
     */ 
-      function uploadFile(auth) {
+     function uploadFile(auth) {
       const drive = google.drive({version: 'v3', auth});
       const fileMetadata = {
       'name': 'GeneratedProject.zip',
@@ -153,13 +154,13 @@ function generateProject(auth) {
       };
       const media = {
       mimeType: 'application/zip',
-      body: fs.createReadStream('./GeneratedProject.zip')
+      body: fs.createReadStream('./GeneratedProjects/UnzippedProject/AutoGen/GeneratedProject.zip')
       };
       drive.files.create({
       resource: fileMetadata,
       media: media,
       fields: 'id'
-      }, (err, file) => {
+    },async (err, file) => {
       if (err) {
           // Handle error
           console.error(err);
@@ -173,14 +174,22 @@ function generateProject(auth) {
             }
           });
   
-          const webViewLink =  drive.files.get({
+          const webViewLink =  await drive.files.get({
             fileId: file.data.id,
             fields: 'webViewLink'
-        }).then(response => { 
-          response.data.webViewLink
-          console.log(response.data.webViewLink)
-        }
-        );
+        })
+        test2 = webViewLink.data.webViewLink
+          console.log(webViewLink.data.webViewLink)
+         ikhdem= JSON.parse(JSON.stringify(test2))
+         fs.writeFileSync('drivelink.txt', ikhdem);
+
+          
+          
+          
+        
+        
+        
+
         
 
       }
@@ -188,6 +197,8 @@ function generateProject(auth) {
 
   
   }
+
+  
   
 
 
@@ -214,6 +225,7 @@ const EditText = require('./Widgets/EditText');
 const TextView = require('./Widgets/TextView');
 const ArtBoard = require('./Widgets/Artboard');
 const { element } = require('./Utils/XmlBuilder');
+const { auth } = require('googleapis/build/src/apis/abusiveexperiencereport');
 
 const port = process.env.PORT || 3000;
 
@@ -426,7 +438,7 @@ app.get('/GenerateProject',function(req,res){
 app.get('/GetProject', function(req,res){
 
 
-  var output = fs.createWriteStream('GeneratedProject.zip');
+  /*var output = fs.createWriteStream('GeneratedProject.zip');
   var archive = archiver('zip');
   
   output.on('close', function () {
@@ -447,7 +459,12 @@ app.get('/GetProject', function(req,res){
   archive.directory('./GeneratedProjects/UnzippedProject/AutoGen/', false);
 
   
-  archive.finalize();
+  archive.finalize();*/
+
+  //converting
+  child_process.execSync(`zip -r GeneratedProject *`, {
+    cwd: './GeneratedProjects/UnzippedProject/AutoGen/'
+  });
 
 //uploading here
 
@@ -459,15 +476,9 @@ fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Drive API.
   authorize(JSON.parse(content),uploadFile);
- // console.log(test)
+  
 
-  res.send('ok');
-});
-
-
-
-
-
+ 
 try {
   var dataa = fs.readFileSync('drivelink.txt','utf-8');
   console.log(dataa);
@@ -475,6 +486,15 @@ try {
   
 }
 res.send(dataa);
+
+
+  
+});
+
+
+
+
+
 
 
 
