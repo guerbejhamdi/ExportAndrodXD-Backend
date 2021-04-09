@@ -12,6 +12,8 @@ const readline = require('readline');
 const {google} = require('googleapis');
 var unzip = require('unzip')
 const child_process = require("child_process");
+const request = require('request');
+const download = require('download');
 
 
 //
@@ -166,6 +168,8 @@ function generateProject(auth) {
           console.error(err);
       } else {
           console.log('File Id: ', file.data.id);
+          url_fileid= JSON.parse(JSON.stringify(file.data.id))
+          fs.writeFileSync('fileId.txt', url_fileid);
           drive.permissions.create({
             fileId: file.data.id,
             requestBody: {
@@ -180,8 +184,10 @@ function generateProject(auth) {
         })
         test2 = webViewLink.data.webViewLink
           console.log(webViewLink.data.webViewLink)
+
          ikhdem= JSON.parse(JSON.stringify(test2))
          fs.writeFileSync('drivelink.txt', ikhdem);
+
 
           
           
@@ -398,15 +404,77 @@ return res.status(200).json({
 })
   });
 
+  ///
+  function downloadFile(auth) {
+    const drive = google.drive({version: 'v3', auth});
+          var fileId = '1vX_khxdOmNMNxq5yJY7PaC3E19LurQN6';
+      var dest = fs.createWriteStream('./ProjectToClient.zip');
+  
+      drive.files.get(
+        { fileId, alt: 'media' },
+        { responseType: 'stream' }
+      ).then(res => {
+        res.data
+          .on('end', () => {
+            console.log('Done downloading project.');
+          })  
+          .on('error', err => {
+            console.error('Error downloading project.');
+          })  
+          .pipe(dest);
+      }); 
 
 
-  app.post('/builder', function (req, res) {
+    }
+
+ 
+
+
+
+  ///
+
+
+
+  app.get('/downlad', function (req, res) {
    // console.log("Request Data : \n" .yellow.underline.bold+JSON.stringify(req.body));
    //new XmlBuilder()
   // new TextView().GenerateWidget(); 
-   console.log('Updated XML :'.yellow.underline.bold);
-   console.log(globalBuilderXmlDocPretty);
-   res.send('Got a POST request from the builder');
+   console.log('Client Requesting to download project :'.yellow.underline.bold);
+//
+
+//reading file id 
+try {
+  var FILE_ID = fs.readFileSync('fileId.txt','utf-8');
+  console.log("THE FILE ID"+FILE_ID);
+} catch (error) {
+  
+}
+
+
+//
+var fileUrl = "https://drive.google.com/uc?export=download&id="+FILE_ID;
+var output = "ClientProject.zip";
+request({url: fileUrl, encoding: null}, function(err, resp, body) {
+  if(err) throw err;
+  fs.writeFile(output, body, function(err) {
+    console.log("file written!");
+  });
+});
+
+  /* // Load client secrets from a local file.
+   fs.readFile('credentials.json', (err, content) => {
+    if (err) return console.log('Error loading client secret file:', err);
+    // Authorize a client with credentials, then call the Google Drive API.
+    authorize(JSON.parse(content), downloadFile);
+  });*/
+
+
+
+
+
+
+
+   res.send('Project Downloaded');
 });  
 
 
