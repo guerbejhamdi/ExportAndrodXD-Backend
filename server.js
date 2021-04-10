@@ -435,7 +435,7 @@ return res.status(200).json({
 
 
 
-  app.get('/downlad', function (req, res) {
+  app.get('/download', function (req, res) {
    // console.log("Request Data : \n" .yellow.underline.bold+JSON.stringify(req.body));
    //new XmlBuilder()
   // new TextView().GenerateWidget(); 
