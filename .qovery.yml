@@ -1,0 +1,11 @@
+---
+application:
+  name: "exportandrodxd-backend"
+  project: "androxback"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-exportandrodxd-backend"
+  routes:
+  - application_name: "exportandrodxd-backend"
+    paths:
+    - "/*"
