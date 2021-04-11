@@ -14,6 +14,7 @@ var unzip = require('unzip')
 const child_process = require("child_process");
 const request = require('request');
 const download = require('download');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 
 //
@@ -449,12 +450,24 @@ try {
 //
 var fileUrl = "https://drive.google.com/uc?export=download&id="+FILE_ID;
 var output = "ClientProject.zip";
-request({url: fileUrl, encoding: null}, function(err, resp, body) {
+/*request({url: fileUrl, encoding: null}, function(err, resp, body) {
   if(err) throw err;
   fs.writeFile(output, body, function(err) {
     console.log("file written!");
+
+
+
   });
-});
+});*/
+
+
+//openURL(fileUrl);
+
+//
+
+/*child_process.execSync(`start chrome "https://drive.google.com/uc?export=download&id=14JgieKUsVFLXCC_PsbzLGM4dp2BGKirA"`, {
+});*/
+
 
   /* // Load client secrets from a local file.
    fs.readFile('credentials.json', (err, content) => {
@@ -468,7 +481,26 @@ request({url: fileUrl, encoding: null}, function(err, resp, body) {
 });  
 
 
+//
+/*const exec = require('child_process').exec;
 
+function openURL(url) {
+  let opener;
+
+  switch (process.platform) {
+    case 'darwin':
+      opener = 'open';
+      break;
+    case 'win32':
+      opener = 'start';
+      break;
+    default:
+      opener = 'xdg-open';
+      break;
+  }
+
+  return exec(`${opener} "${url.replace(/"/g, '\\\"')}"`);
+}*/
 
 
 //Testing get request before applying global changes!

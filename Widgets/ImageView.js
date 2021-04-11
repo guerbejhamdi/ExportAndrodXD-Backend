@@ -19,6 +19,7 @@ class ImageView extends Widget{
         .att('android:layout_width', 'match_parent')
         .att('android:layout_height', 'wrap_content')
         .att('tools:ignore', 'MissingConstraints')
+        
 
                 .up()
        global.globalBuilderXmlDocPretty = globalBuilderDoc.toString({ pretty: true });
@@ -35,6 +36,9 @@ class ImageView extends Widget{
              .att('android:src', '@drawable/'+element[".id"])
              .att('app:layout_constraintStart_toStartOf','parent')
              .att('app:layout_constraintTop_toTopOf','parent')
+             .att('android:layout_marginStart',element["x"]+"dp")
+             .att('android:layout_marginTop',element["y"]+"dp")
+
               .up()
 
            
