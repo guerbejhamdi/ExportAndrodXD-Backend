@@ -507,9 +507,18 @@ function openURL(url) {
 
 
 //
-
+const  apiKeys = new Map();
+apiKeys.set('12345',true);
 //
-app.get('/GenerateProject',function(req,res){
+app.get('/GenerateProject',(req,res,next) => {
+  const apiKey = req.get('X-API-KEY');
+  if(apiKeys.has(apiKey)){
+    next();
+  }else{
+    const error = new Error('Invalid API KEY')
+    next(error);
+  }
+},function(req,res){
 
     // Load client secrets from a local file.
   fs.readFile('credentials.json', (err, content) => {
@@ -591,5 +600,22 @@ res.send(dataa);
 
 });
 
+
+
+/*
+//
+const requesting = require("supertest");
+
+app.post("/both", async function(req, res) {
+    const server = requesting(req.app);
+    const gen = await server.get("/GenerateProject");
+    const exportxml = await server.post("/ExportToXml");
+
+    res.json({
+      gen: gen.body,
+    });
+});
+
+//*/
 
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));
