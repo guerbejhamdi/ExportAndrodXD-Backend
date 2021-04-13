@@ -18,6 +18,8 @@ class Button extends Widget{
            .att('android:layout_height', 'wrap_content')
            .att('android:text',element["text"])
            .att('android:backgroundTint',"#"+element["background"].toString(16) )
+           .att('android:textColor',"#"+element["textColor"].toString(16) )
+
             .att('android:textSize',element["fontSize"]+"dp" )
            .att('app:layout_constraintStart_toStartOf','parent')
            .att('app:layout_constraintTop_toTopOf','parent')
@@ -35,6 +37,7 @@ class Button extends Widget{
             .att('android:layout_width', element["width"]+"dp")
             .att('android:layout_height', 'wrap_content')
             .att('android:backgroundTint',"#"+element["background"].toString(16) )
+            .att('android:textColor',"#"+element["textColor"].toString(16) )
             .att('app:layout_constraintStart_toStartOf','parent')
             .att('app:layout_constraintTop_toTopOf','parent')
             .att('android:layout_marginStart',element["x"]+"dp")
