@@ -506,10 +506,11 @@ function openURL(url) {
 //Testing get request before applying global changes!
 
 
-//
+//Currently in a map , needs to be stored in a file in the future
 const  apiKeys = new Map();
 apiKeys.set('12345',true);
 //
+
 app.get('/GenerateProject',(req,res,next) => {
   const apiKey = req.get('X-API-KEY');
   if(apiKeys.has(apiKey)){
