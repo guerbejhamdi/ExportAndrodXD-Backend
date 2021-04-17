@@ -622,7 +622,7 @@ app.post("/both", async function(req, res) {
 
 app.get('/', function (req, res) {
 
-  res.send('App is working');
+  res.sendFile((__dirname + '/index.html'));
 
 });
 
