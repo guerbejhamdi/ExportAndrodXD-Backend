@@ -619,4 +619,11 @@ app.post("/both", async function(req, res) {
 
 //*/
 
+
+app.get('/', function (req, res) {
+
+  res.send('App is working');
+
+});
+
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));
