@@ -495,7 +495,7 @@ var output = "ClientProject.zip";
    res.send(fileUrl);
    console.log(__dirname+'/drivelink.txt')
   // fs.unlinkSync(__dirname+'/fileId.txt')
-  // fs.unlinkSync(__dirname+'/drivelink.txt')
+   fs.unlinkSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/GeneratedProject.zip')
 
    //fsExtra.emptyDirSync(__dirname+'/drivelink.txt')
   // fsExtra.emptyDirSync(__dirname+'/fileId.txt')
