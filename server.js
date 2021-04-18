@@ -15,6 +15,8 @@ const child_process = require("child_process");
 const request = require('request');
 const download = require('download');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const fsExtra = require('fs-extra')
+
 
 
 //
@@ -219,6 +221,9 @@ dotenv.config({
 var dirPath = __dirname + process.env.DIR_PATH ;
 var dirPathLog = __dirname + process.env.DIR_PATH_LOG;
 var dirPastPath = __dirname + process.env.DIR_PAST_PATH;
+var dirPastLivePath = __dirname + process.env.DIR_PASTLIVE_PATH;
+var dirProjectPath = __dirname + process.env.DIR_PROJECET_PATH;
+var dirXMLFilesPath = __dirname + process.env.DIR_PATH_ARTBOARD;
 
 
 //Here we are configuring express to use body-parser as middle-ware.
@@ -477,7 +482,24 @@ var output = "ClientProject.zip";
   });*/
 
 
+  //deleting files
+  var test = __dirname +process.env.DIR_PATH_ARTBOARD
+  console.log(test)
+ // fsExtra.emptyDirSync('CHANGE ME SERVER SIDE')
+
+  //fsExtra.emptyDirSync(__dirname+'/public/xmlfiles/')
+  fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/')
+  fsExtra.emptyDirSync(__dirname+'/public/xmlfiles')
+
+  //require('child_process').execSync('rm -rf '+dirPastLivePath+"*")
    res.send(fileUrl);
+   console.log(__dirname+'/drivelink.txt')
+  // fs.unlinkSync(__dirname+'/fileId.txt')
+  // fs.unlinkSync(__dirname+'/drivelink.txt')
+
+   //fsExtra.emptyDirSync(__dirname+'/drivelink.txt')
+  // fsExtra.emptyDirSync(__dirname+'/fileId.txt')
+ 
 });  
 
 
