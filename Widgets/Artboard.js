@@ -30,34 +30,62 @@ class ArtBoard extends Widget{
 
     Parsesontoxml(artBoard) {
 
+      if(artBoard["isScrollable"]==true){
+        var doc = builder.create('ScrollView');
+        doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android');
+        doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto');
+        doc.att('xmlns:tools', 'http://schemas.android.com/tools');
+        doc.att('android:layout_width', 'match_parent');
+        doc.att('android:layout_height', element["scrollViewtHeight"]+"dp") ;
+
+
+        doc.ele('androidx.constraintlayout.widget.ConstraintLayout');
+        doc.att('android:layout_width', 'match_parent');
+        doc.att('android:layout_height', 'match_parent');
+
+      }else {
+
+       
+
+
         var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
-
-        var shapeDoc = builder.create('shape');
-        shapeDoc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
-        shapeDoc.att('android:shape', 'rectangle')
-        shapeDoc.att('android:padding', '15dp')
-
-
         doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
         doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
         doc.att('xmlns:tools', 'http://schemas.android.com/tools')
         doc.att('android:layout_width', 'match_parent')
-        doc.att('android:layout_height', 'match_parent')
-        doc.att('android:layout_height', 'match_parent')
+        doc.att('android:layout_height', 'match_parent') 
         doc.att('tools:context', '.MainActivity')
+
+
+      }
+
+      
+      var shapeDoc = builder.create('shape');
+      shapeDoc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
+      shapeDoc.att('android:shape', 'rectangle')
+      shapeDoc.att('android:padding', '15dp')
+        
         if(artBoard["background"]!=null){
           doc.att('android:background', "#"+artBoard["background"].toString(16))
-        }
+        } 
 
 
-
-      doc.toString({ pretty: true })
-
+       doc.toString({ pretty: true })
 
        artBoard.children.forEach(element => {
 
         Utils.ParseByAndroidClass(element,element[".class"],doc,shapeDoc);
             
+    }).after(()=>{
+      if(artBoard["isScrollable"]==true){
+
+        doc.up();
+
+      }
+
+
+
+
     });
 
     doc =doc.toString({ pretty: true })

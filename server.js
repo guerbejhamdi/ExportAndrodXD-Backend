@@ -485,7 +485,7 @@ var output = "ClientProject.zip";
   //deleting files
   var test = __dirname +process.env.DIR_PATH_ARTBOARD
   console.log(test)
- // fsExtra.emptyDirSync('CHANGE ME SERVER SIDE')
+  fsExtra.emptyDirSync('C:/Server/public/xmlfiles/')
 
   //fsExtra.emptyDirSync(__dirname+'/public/xmlfiles/')
   fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/')
