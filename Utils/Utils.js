@@ -8,10 +8,10 @@ const ImageView = require('../Widgets/ImageView');
 
 class Utils{
 
-static ParseByAndroidClass(element,typeWidget,doc) {
+static ParseByAndroidClass(element,typeWidget,doc,shapeDoc) {
     if(typeWidget=="Button"){
       console.log("eni bouton");
-        new Button().Parsejsontoxml(element,doc); 
+        new Button().Parsejsontoxml(element,doc,shapeDoc); 
     }else if (typeWidget=="EditText"){
       console.log("eni EditText");
       new EditText().Parsejsontoxml(element,doc); 

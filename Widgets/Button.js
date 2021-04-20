@@ -10,7 +10,7 @@ var builder = require('xmlbuilder');
 class Button extends Widget{
    
  
-      Parsejsontoxml(element,doc) {
+      Parsejsontoxml(element,doc,shapeDoc) {
       if(element[".adobeClass"]=="Group"){
             doc.ele('Button')
             .att('android:id', '@+id/'+element[".id"])
@@ -32,7 +32,7 @@ class Button extends Widget{
 
 
       }else if(element[".adobeClass"]=="Rectangle"){
-            doc.ele('Button')
+            doc.ele('android.widget.Button')
             .att('android:id', '@+id/'+element[".id"])
             .att('android:layout_width', element["width"]+"dp")
             .att('android:layout_height', element["height"]+"dp")
@@ -42,6 +42,29 @@ class Button extends Widget{
             .att('android:layout_marginStart',element["x"]+"dp")
             .att('android:layout_marginTop',element["y"]+"dp")
             .up()
+
+
+
+            shapeDoc.com('Background Color')
+            shapeDoc.ele('solid')
+            .att('android:color',"#"+element["background"].toString(16) )
+
+
+            shapeDoc.com('Border Color')
+            shapeDoc.ele('stroke')
+            .att('android:width',"2dp" )
+            .att('android:color',"#000000" )
+
+
+
+
+            shapeDoc.ele('corners')
+            .att('android:bottomRightRadius',element["cornerRadius"]['bottomRight']+"dp")
+            .att('android:bottomLeftRadius',element["cornerRadius"]['bottomLeft']+"dp")
+            .att('android:topLeftRadius',element["cornerRadius"]['topLeft']+"dp")
+            .att('android:topRightRadius',element["cornerRadius"]['topRight']+"dp")
+            .up()
+
         
 
 
