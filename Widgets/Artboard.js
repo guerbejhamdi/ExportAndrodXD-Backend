@@ -31,17 +31,22 @@ class ArtBoard extends Widget{
     Parsesontoxml(artBoard) {
 
       if(artBoard["isScrollable"]==true){
-        var doc = builder.create('ScrollView');
-        doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android');
-        doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto');
-        doc.att('xmlns:tools', 'http://schemas.android.com/tools');
-        doc.att('android:layout_width', 'match_parent');
-        doc.att('android:layout_height', element["scrollViewtHeight"]+"dp") ;
+        var doc = builder.create('ScrollView')
+        .att('xmlns:android', 'http://schemas.android.com/apk/res/android')
+        .att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
+        .att('xmlns:tools', 'http://schemas.android.com/tools')
+        .att('android:layout_width', 'match_parent')
+        .att('android:layout_height', artBoard["scrollViewtHeight"]+"dp") 
 
 
-        doc.ele('androidx.constraintlayout.widget.ConstraintLayout');
-        doc.att('android:layout_width', 'match_parent');
-        doc.att('android:layout_height', 'match_parent');
+        .ele('androidx.constraintlayout.widget.ConstraintLayout')
+        .att('android:layout_width', 'match_parent')
+        .att('android:layout_height', 'match_parent')
+        
+        
+        
+        
+        
 
       }else {
 
@@ -49,12 +54,13 @@ class ArtBoard extends Widget{
 
 
         var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
-        doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
-        doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
-        doc.att('xmlns:tools', 'http://schemas.android.com/tools')
-        doc.att('android:layout_width', 'match_parent')
-        doc.att('android:layout_height', 'match_parent') 
-        doc.att('tools:context', '.MainActivity')
+        doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android');
+        doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto');
+        doc.att('xmlns:tools', 'http://schemas.android.com/tools');
+        doc.att('android:layout_width', 'match_parent');
+        doc.att('android:layout_height', 'match_parent'); 
+        doc.att('tools:context', '.MainActivity');
+        
 
 
       }
@@ -66,17 +72,21 @@ class ArtBoard extends Widget{
       shapeDoc.att('android:padding', '15dp')
         
         if(artBoard["background"]!=null){
-          doc.att('android:background', "#"+artBoard["background"].toString(16))
+          shapeDoc.att('android:background', "#"+artBoard["background"].toString(16))
         } 
 
+        
+        
 
-       doc.toString({ pretty: true })
+
+        doc.toString({ pretty: true })
+       
 
        artBoard.children.forEach(element => {
 
         Utils.ParseByAndroidClass(element,element[".class"],doc,shapeDoc);
             
-    }).after(()=>{
+      });/* }).after(()=>{
       if(artBoard["isScrollable"]==true){
 
         doc.up();
@@ -86,7 +96,7 @@ class ArtBoard extends Widget{
 
 
 
-    });
+    });*/
 
     doc =doc.toString({ pretty: true })
     shapeDoc=shapeDoc.toString({ pretty: true })
