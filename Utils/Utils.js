@@ -4,14 +4,15 @@ const Button = require('../Widgets/Button');
 const EditText = require('../Widgets/EditText');
 const TextView = require('../Widgets/TextView');
 const ImageView = require('../Widgets/ImageView');
+const ScrollView = require('../Widgets/ScrollView');
 
 
 class Utils{
 
-static ParseByAndroidClass(element,typeWidget,doc,shapeDoc) {
+static ParseByAndroidClass(element,typeWidget,doc) {
     if(typeWidget=="Button"){
       console.log("eni bouton");
-        new Button().Parsejsontoxml(element,doc,shapeDoc); 
+        new Button().Parsejsontoxml(element,doc); 
     }else if (typeWidget=="EditText"){
       console.log("eni EditText");
       new EditText().Parsejsontoxml(element,doc); 
@@ -23,6 +24,9 @@ static ParseByAndroidClass(element,typeWidget,doc,shapeDoc) {
     }else if(typeWidget=="ImageView"){ 
       console.log("eni ImageView");
       new ImageView().Parsejsontoxml(element,doc); 
+    } if(typeWidget=="ScrollView"){ 
+      console.log("eni ScrollView");
+      new ScrollView().Parsejsontoxml(element,doc); 
     }
     
     else{

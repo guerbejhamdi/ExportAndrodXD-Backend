@@ -46,7 +46,8 @@ class ArtBoard extends Widget{
 
         var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
         doc.att('android:layout_width', 'match_parent');
-        doc.att('android:layout_height', 'match_parent'); 
+        doc.att('android:layout_height', 'match_parent');
+        doc.att('android:background','#'+artBoard["background"].toString(16)) 
     
         
 
@@ -62,20 +63,21 @@ class ArtBoard extends Widget{
         doc.att('android:layout_width', 'match_parent');
         doc.att('android:layout_height', 'match_parent'); 
         doc.att('tools:context', '.MainActivity');
+        doc.att('android:background','#'+artBoard["background"].toString(16)) 
         
 
 
       }
 
       
-      var shapeDoc = builder.create('shape');
-      shapeDoc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
-      shapeDoc.att('android:shape', 'rectangle')
-      shapeDoc.att('android:padding', '15dp')
+      // var shapeDoc = builder.create('shape');
+      // shapeDoc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
+      // shapeDoc.att('android:shape', 'rectangle')
+      // shapeDoc.att('android:padding', '15dp')
         
-        if(artBoard["background"]!=null){
-          shapeDoc.att('android:background', "#"+artBoard["background"].toString(16))
-        } 
+        // if(artBoard["background"]!=null){
+        //   shapeDoc.att('android:background', "#"+artBoard["background"].toString(16))
+        // } 
 
   
 
@@ -84,7 +86,7 @@ class ArtBoard extends Widget{
 
        artBoard.children.forEach(element => {
 
-        Utils.ParseByAndroidClass(element,element[".class"],doc,shapeDoc);
+        Utils.ParseByAndroidClass(element,element[".class"],doc);
             
       });
       
@@ -119,7 +121,7 @@ class ArtBoard extends Widget{
 
     // doc=test.importDocument(doc);
     doc =doc.toString({ pretty: true })
-    shapeDoc=shapeDoc.toString({ pretty: true })
+    // shapeDoc=shapeDoc.toString({ pretty: true })
 
 
 
@@ -147,20 +149,20 @@ class ArtBoard extends Widget{
 
 
 
-          fs.writeFile(testShape, shapeDoc, function(err) {
+          // fs.writeFile(testShape, shapeDoc, function(err) {
 
-            if(err) { return console.log(err); } 
-            console.log("The shapes xml file was saved!".red.underline.bold);
+          //   if(err) { return console.log(err); } 
+          //   console.log("The shapes xml file was saved!".red.underline.bold);
 
-                //COPYING FILES AFTER GENERATION
-                fs.copyFile(dirCopyPathShapes+"Shape"+artBoard["name"], dirPastLiveShapesPath+"Shape"+artBoard["name"], (err) => {
-                  if (err) throw err;
-                  console.log(dirCopyPathShapes);
-                  console.log(dirPastLiveShapesPath+artBoard["name"]);
-                  console.log('SHAPE XML was copied to project drawable folder!'.green.underline.bold );
-                });
+          //       //COPYING FILES AFTER GENERATION
+          //       fs.copyFile(dirCopyPathShapes+"Shape"+artBoard["name"], dirPastLiveShapesPath+"Shape"+artBoard["name"], (err) => {
+          //         if (err) throw err;
+          //         console.log(dirCopyPathShapes);
+          //         console.log(dirPastLiveShapesPath+artBoard["name"]);
+          //         console.log('SHAPE XML was copied to project drawable folder!'.green.underline.bold );
+          //       });
         
-          }); 
+          // }); 
 
 
 
