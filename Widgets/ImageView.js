@@ -36,8 +36,10 @@ class ImageView extends Widget{
              .att('android:src', '@drawable/'+element[".id"])
              .att('app:layout_constraintStart_toStartOf','parent')
              .att('app:layout_constraintTop_toTopOf','parent')
+             .att('app:layout_constraintEnd_toEndOf','parent')
              .att('android:layout_marginStart',element["x"]+"dp")
              .att('android:layout_marginTop',element["y"]+"dp")
+             .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
 
               .up()
 

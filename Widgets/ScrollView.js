@@ -45,10 +45,12 @@ class ScrollView extends Widget{
             parentLayout.att('app:layout_constraintEnd_toEndOf','parent'); 
             parentLayout.att('app:layout_constraintStart_toStartOf','parent'); 
             parentLayout.att('app:layout_constraintTop_toTopOf','parent'); 
+            parentLayout.att('app:layout_constraintEnd_toEndOf','parent');
 
 
             parentLayout.att('android:layout_marginStart',element["x"]+"dp" ); 
             parentLayout.att('android:layout_marginTop',element["y"]+"dp" ); 
+            parentLayout.att('android:layout_marginEnd',element["marginRight"]+"dp" ); 
 
     
             parentLayout=parentLayout.importDocument(constraintlayout);

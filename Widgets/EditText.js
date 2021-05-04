@@ -34,11 +34,15 @@ class EditText extends Widget{
              .att('android:layout_width', element["width"]+"dp")
              .att('android:layout_height', 'wrap_content')
              .att('android:hint',element["hint"] )
-              .att('android:textSize',element["fontSize"]+"sp" )
+             .att('android:textColor',"#"+element["textColor"].toString(16) )
+             .att('android:textColorHint',"#"+element["textColor"].toString(16) )
+             .att('android:textSize',element["fontSize"]+"sp" )
              .att('app:layout_constraintStart_toStartOf','parent')
              .att('app:layout_constraintTop_toTopOf','parent')
+             .att('app:layout_constraintEnd_toEndOf','parent')
              .att('android:layout_marginStart',element["x"]+"dp")
              .att('android:layout_marginTop',element["y"]+"dp")
+             .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
               .up()
               // android:layout_marginLeft="40dp"
               // android:layout_marginTop="8dp"
@@ -53,8 +57,10 @@ class EditText extends Widget{
               .att('android:textSize',element["fontSize"]+"dp" )
               .att('app:layout_constraintStart_toStartOf','parent')
               .att('app:layout_constraintTop_toTopOf','parent')
+              .att('app:layout_constraintEnd_toEndOf','parent')
               .att('android:layout_marginStart',element["test-x"]+"dp")
               .att('android:layout_marginTop',element["test-y"]+"dp")
+              .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
               .up()
           
   

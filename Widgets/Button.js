@@ -25,7 +25,7 @@ class Button extends Widget{
 
 
       if(element[".adobeClass"]=="Group"){
-            doc.ele('Button')
+            doc.ele('android.widget.Button')
             .att('android:id', '@+id/'+element[".id"])
            .att('android:layout_width', element["width"]+"dp")
            .att('android:layout_height', 'wrap_content')
@@ -36,8 +36,10 @@ class Button extends Widget{
             .att('android:textSize',element["fontSize"]+"dp" )
            .att('app:layout_constraintStart_toStartOf','parent')
            .att('app:layout_constraintTop_toTopOf','parent')
+           .att('app:layout_constraintEnd_toEndOf','parent')
            .att('android:layout_marginStart',element["x"]+"dp")
            .att('android:layout_marginTop',element["y"]+"dp")
+           .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
            .att('android:background','@drawable/shape'+element[".id"])
             .up()
             // android:layout_marginLeft="40dp"
@@ -53,8 +55,10 @@ class Button extends Widget{
             .att('android:backgroundTint',"#"+element["background"].toString(16) )
             .att('app:layout_constraintStart_toStartOf','parent')
             .att('app:layout_constraintTop_toTopOf','parent')
+            .att('app:layout_constraintEnd_toEndOf','parent')
             .att('android:layout_marginStart',element["x"]+"dp")
             .att('android:layout_marginTop',element["y"]+"dp")
+           .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
             .att('android:background','@drawable/shape'+element[".id"])
             .up()
 
