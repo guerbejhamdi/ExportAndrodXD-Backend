@@ -13,6 +13,9 @@ var dirPastPath = __dirname + process.env.DIR_PAST_PATH;
 var dirPastLivePath = __dirname + process.env.DIR_PASTLIVE_PATH;
 var dirPastLiveShapesPath = __dirname + process.env.DIR_PASTLIVE_SHAPES_PATH;
 
+var dirPastJavaTxtPath = __dirname + process.env.DIR_PASTE_JAVATXT_PATH;
+var dirPastJavaClassPath = __dirname + process.env.DIR_PASTE_JAVACLASS_PATH;
+
 
 dotenv.config({
     path: './config/config.env'
@@ -148,6 +151,42 @@ class ArtBoard extends Widget{
 
 
 
+/*
+      //default version1.
+      fs.copyFile('./BaseActivity.txt', dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.txt", (err) => {
+        if (err) 
+            throw err;
+        console.log('Java txt copied!');
+      });*/
+
+
+      fs.readFile('./BaseActivity.txt', 'utf8', function (err,data) {
+        if (err) {
+          return console.log(err);
+        }
+        var result = data.replace(/BaseActivity/g, capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity"))
+        .replace(/activity_name/g, artBoard["name"].replace('.xml',''))
+        ;
+        
+      
+        fs.writeFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", result, 'utf8', function (err) {
+           if (err) return console.log(err);
+
+           
+      fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
+        if (err) 
+            throw err;
+
+        console.log('Java class copied!');
+      });
+
+        });
+      });
+
+
+
+
+
 
           // fs.writeFile(testShape, shapeDoc, function(err) {
 
@@ -176,6 +215,8 @@ class ArtBoard extends Widget{
 
 }
 
-
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 module.exports = ArtBoard
