@@ -5,6 +5,8 @@ const EditText = require('../Widgets/EditText');
 const TextView = require('../Widgets/TextView');
 const ImageView = require('../Widgets/ImageView');
 const ScrollView = require('../Widgets/ScrollView');
+const Relativelayout = require('../Widgets/Relativelayout');
+const Switch = require('../Widgets/Switch');
 
 
 class Utils{
@@ -24,6 +26,12 @@ static ParseByAndroidClass(element,typeWidget,doc) {
     }else if(typeWidget=="ImageView"){ 
       console.log("eni ImageView");
       new ImageView().Parsejsontoxml(element,doc); 
+    }else if(typeWidget=="Relativelayout"){ 
+      console.log("eni Relativelayout");
+      new Relativelayout().Parsejsontoxml(element,doc);
+    }else if(typeWidget=="Switch"){ 
+      console.log("eni Switch");
+      new Switch().Parsejsontoxml(element,doc);
     } if(typeWidget=="ScrollView"){ 
       console.log("eni ScrollView");
       new ScrollView().Parsejsontoxml(element,doc); 
