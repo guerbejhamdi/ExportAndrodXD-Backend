@@ -25,42 +25,62 @@ class Button extends Widget{
 
 
       if(element[".adobeClass"]=="Group"){
-            doc.ele('android.widget.Button')
-            .att('android:id', '@+id/'+element[".id"])
-           .att('android:layout_width', element["width"]+"dp")
-           .att('android:layout_height', 'wrap_content')
-           .att('android:text',element["text"])
-           .att('android:backgroundTint',"#"+element["background"].toString(16) )
-           .att('android:textColor',"#"+element["textColor"].toString(16) )
-
-            .att('android:textSize',element["fontSize"]+"dp" )
-           .att('app:layout_constraintStart_toStartOf','parent')
-           .att('app:layout_constraintTop_toTopOf','parent')
-           .att('app:layout_constraintEnd_toEndOf','parent')
-           .att('android:layout_marginStart',element["x"]+"dp")
-           .att('android:layout_marginTop',element["y"]+"dp")
-           .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
-           .att('android:background','@drawable/shape'+element[".id"])
-            .up()
+            let item= doc.ele('android.widget.Button');
+            item.att('android:id', '@+id/'+element[".id"]);
+            item.att('android:layout_width', element["width"]+"dp");
+            item.att('android:layout_height', 'wrap_content');
+            item.att('android:text',element["text"]);
+            item.att('android:backgroundTint',"#"+element["background"].toString(16) );
+            item.att('android:textColor',"#"+element["textColor"].toString(16) );
+            item.att('android:textSize',element["fontSize"]+"dp" );
+            item.att('app:layout_constraintStart_toStartOf','parent');
+            item.att('app:layout_constraintTop_toTopOf','parent');
+            item.att('android:layout_marginStart',element["x"]+"dp");
+            item.att('android:layout_marginTop',element["y"]+"dp");
+            if(element["marginRight"]!=undefined){
+            item.att('app:layout_constraintEnd_toEndOf','parent');
+            item.att('android:layout_marginEnd',element["marginRight"]+"dp" ) ;
+                   }
+            
+           if(element["marginBottom"]!=undefined){
+            item.att('app:layout_constraintBottom_toBottomOf','parent');
+            item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
+             }
+       
+            item.att('android:background','@drawable/shape'+element[".id"]);
+            item.up();
             // android:layout_marginLeft="40dp"
             // android:layout_marginTop="8dp"
            
 
 
       }else if(element[".adobeClass"]=="Rectangle"){
-            doc.ele('android.widget.Button')
-            .att('android:id', '@+id/'+element[".id"])
-            .att('android:layout_width', element["width"]+"dp")
-            .att('android:layout_height', element["height"]+"dp")
-            .att('android:backgroundTint',"#"+element["background"].toString(16) )
-            .att('app:layout_constraintStart_toStartOf','parent')
-            .att('app:layout_constraintTop_toTopOf','parent')
-            .att('app:layout_constraintEnd_toEndOf','parent')
-            .att('android:layout_marginStart',element["x"]+"dp")
-            .att('android:layout_marginTop',element["y"]+"dp")
-           .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
-            .att('android:background','@drawable/shape'+element[".id"])
-            .up()
+          let item=  doc.ele('android.widget.Button');
+        
+
+            item.att('android:id', '@+id/'+element[".id"]);
+            item.att('android:layout_width', element["width"]+"dp");
+            item.att('android:layout_height', element["height"]+"dp");
+            item.att('android:backgroundTint',"#"+element["background"].toString(16) );
+            item.att('app:layout_constraintStart_toStartOf','parent');
+            item.att('app:layout_constraintTop_toTopOf','parent');
+          
+            item.att('android:layout_marginStart',element["x"]+"dp");
+            item.att('android:layout_marginTop',element["y"]+"dp");
+
+            if(element["marginRight"]!=undefined){
+                  item.att('app:layout_constraintEnd_toEndOf','parent');
+                  item.att('android:layout_marginEnd',element["marginRight"]+"dp" ) ;
+                 }
+                  
+                 if(element["marginBottom"]!=undefined){
+                  item.att('app:layout_constraintBottom_toBottomOf','parent');
+                  item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
+                }
+           
+            item.att('android:background','@drawable/shape'+element[".id"]);
+            item.up();
+          
 
       }else if(element[".adobeClass"]=="Text") {
 
