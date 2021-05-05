@@ -485,12 +485,14 @@ var output = "ClientProject.zip";
   //deleting files
   var test = __dirname +process.env.DIR_PATH_ARTBOARD
   console.log(test)
-  //fsExtra.emptyDirSync('D:/PIM/public/xmlfiles/')
+  fsExtra.emptyDirSync('D:/PIM/public/xmlfiles/')
 
   //fsExtra.emptyDirSync(__dirname+'/public/xmlfiles/')
   fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/')
+  fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/drawable/')
   fsExtra.emptyDirSync(__dirname+'/public/xmlfiles')
-  //fsExtra.emptyDirSync('D:/PIM/public/javaclasses/')
+  fsExtra.emptyDirSync('D:/PIM/public/javaclasses/')
+  fsExtra.emptyDirSync('D:/PIM/public/shapesxml/')
 
   //require('child_process').execSync('rm -rf '+dirPastLivePath+"*")
    res.send(fileUrl);
