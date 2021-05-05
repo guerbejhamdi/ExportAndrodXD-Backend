@@ -1,5 +1,7 @@
 const Widget = require('../Widgets/Widget');
 var builder = require('xmlbuilder');
+const dotenv = require('dotenv');
+var fs  = require('fs');
 
 /**
  * Switch.
@@ -51,11 +53,20 @@ class Switch extends Widget{
     },*/
     
       Parsejsontoxml(element,doc) {
+
+        var testShape = __dirname +process.env.DIR_PATH_SHAPES+"shape"+element[".id"]+".xml";
+            var dirCopyPath = __dirname + process.env.DIR_COPYPATH ;
+            var dirPastLivePath = __dirname + process.env.DIR_PASTLIVE_PATH;
+            var dirPastLiveShapesPath = __dirname + process.env.DIR_PASTLIVE_SHAPES_PATH;
+            var test = __dirname +process.env.DIR_PATH_ARTBOARD+element[".id"]+".xml";
+            var dirCopyPathShapes = __dirname + process.env.DIR_COPYPATH_SHAPES ;
+
+
         if(element[".adobeClass"]=="Group"){
               doc.ele('Switch')
               .att('android:id', '@+id/'+element[".id"])
-             .att('android:layout_width', element["width"])
-             .att('android:layout_height', element["height"])
+             .att('android:layout_width', element["width"]+'dp')
+             .att('android:layout_height', element["height"]+'dp')
              .att('android:text',element["text"])
              .att('android:fontFamily',element["fontFamily"])
              .att('android:fontStyle',element["fontStyle"])
@@ -63,6 +74,9 @@ class Switch extends Widget{
              .att('android:textColor',"#"+element["textColor"].toString(16) )
              .att('android:letterSpacing',element["charSpacing"] )
              .att('android:ltextAlign',element["textAlign"] )
+             .att('app:layout_constraintStart_toStartOf','parent')
+             .att('app:layout_constraintTop_toTopOf','parent')
+             .att('app:layout_constraintEnd_toEndOf','parent')
              .att('android:layout_marginStart',element["x"]+"dp")
              .att('android:layout_marginTop',element["y"]+"dp")
              .att('android:layout_marginEnd',element["marginRight"]+"dp" )
