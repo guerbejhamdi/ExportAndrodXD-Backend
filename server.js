@@ -485,11 +485,12 @@ var output = "ClientProject.zip";
   //deleting files
   var test = __dirname +process.env.DIR_PATH_ARTBOARD
   console.log(test)
-  fsExtra.emptyDirSync('C:/Server/public/xmlfiles/')
+  fsExtra.emptyDirSync('D:/PIM/public/xmlfiles/')
 
   //fsExtra.emptyDirSync(__dirname+'/public/xmlfiles/')
   fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/')
   fsExtra.emptyDirSync(__dirname+'/public/xmlfiles')
+  fsExtra.emptyDirSync('D:/PIM/public/javaclasses/')
 
   //require('child_process').execSync('rm -rf '+dirPastLivePath+"*")
    res.send(fileUrl);
@@ -647,5 +648,70 @@ app.get('/', function (req, res) {
   res.sendFile((__dirname + '/index.html'));
 
 });
+
+
+var dirPastRecyclerPath = __dirname + process.env.DIR_PASTE_RECYCLER_ADAPTER_PATH;
+
+
+app.post('/GenerateRecycler', function (req, res) {
+
+  const AdapterName = req.get('adapter_name');
+  const ModelName = req.get('model_name');
+
+
+
+  fs.readFile('./RecyclerModel/BaseAdapter.txt', 'utf8', function (err,data) {
+    if (err) {
+      return console.log(err);
+    }
+    var result = data.replace(/BaseAdapter/g, AdapterName)
+    .replace(/MyListData/g, ModelName)
+    ;
+    
+  
+    fs.writeFile(dirPastRecyclerPath+AdapterName+".java", result, 'utf8', function (err) {
+       if (err) return console.log(err);
+
+       
+ /* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
+    if (err) 
+        throw err;
+
+    console.log('Java class copied!');
+  });*/
+
+    });
+  });
+
+
+
+  fs.readFile('./RecyclerModel/MyModel.txt', 'utf8', function (err,data) {
+    if (err) {
+      return console.log(err);
+    }
+    var result = data.replace(/MyModel/g, ModelName);
+    
+  
+    fs.writeFile(dirPastRecyclerPath+ModelName+".java", result, 'utf8', function (err) {
+       if (err) return console.log(err);
+
+       
+ /* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
+    if (err) 
+        throw err;
+
+    console.log('Java class copied!');
+  });*/
+
+    });
+  });
+
+
+
+
+  res.send('Recycler Generated!')
+
+});
+
 
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));
