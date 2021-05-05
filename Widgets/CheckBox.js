@@ -2,17 +2,17 @@ const Widget = require('../Widgets/Widget');
 var builder = require('xmlbuilder');
 
 /**
- * Switch.
+ * CheckBox.
  *
- * @class Switch
+ * @class CheckBox
  * @extends {Widget}
  */
-class Switch extends Widget{
+class CheckBox extends Widget{
 
     GenerateWidget() {
-        console.log("Generating Switch Widget Called!");
-        //TODO : Generate Switch XML CODE
-        globalBuilderDoc.ele('Switch')
+        console.log("Generating CheckBox Widget Called!");
+        //TODO : Generate CheckBox XML CODE
+        globalBuilderDoc.ele('CheckBox')
         .att('android:id', '@+id/plain_text_input')
         .att('android:layout_width', 'match_parent')
         .att('android:layout_height', 'wrap_content')
@@ -24,35 +24,32 @@ class Switch extends Widget{
 
       }
       /*{
-        ".class": "Switch",
+         ".class": "CheckBox",
                     ".adobeClass": "Group",
-                    ".id": "switch",
-                    ".width": "wrap_content",
-                    ".height": "wrap_content",
-                    "text": "click here",
+                    ".id": "idCheck",
+                    "text": "remember me",
                     "fontFamily": "Helvetica Neue",
                     "fontStyle": "Regular",
-                    android:fontStyle
                     "fontSize": 20,
                     "textColor": 4292401368,
                     "charSpacing": 0,
                     "textAlign": "left",
-                    "x": 68,
-                    "y": 682,
-                    "marginRight": 312,
-                    "width": 48,
-                    "height": 15,
-                    "background": 4289243304,
+                    "x": 112,
+                    "y": 573,
+                    "marginRight": 293,
+                    "width": 23,
+                    "height": 26,
+                    "background": 4294967295,
                     "cornerRadius": {
-                        "topLeft": 20,
-                        "topRight": 20,
-                        "bottomRight": 20,
-                        "bottomLeft": 20
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
     },*/
     
       Parsejsontoxml(element,doc) {
         if(element[".adobeClass"]=="Group"){
-              doc.ele('Switch')
+              doc.ele('CheckBox')
               .att('android:id', '@+id/'+element[".id"])
              .att('android:layout_width', element["width"])
              .att('android:layout_height', element["height"])
@@ -75,7 +72,7 @@ class Switch extends Widget{
   
         }else {
   
-              console.log("BUGG ON Relativelayout");
+              console.log("BUGG ON CheckBox");
         }
 
 
@@ -137,4 +134,4 @@ class Switch extends Widget{
 
 
 
-module.exports = Switch
+module.exports = CheckBox
