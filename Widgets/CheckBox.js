@@ -65,11 +65,8 @@ class CheckBox extends Widget{
              .att('android:layout_width', element["width"]+'dp')
              .att('android:layout_height', element["height"]+'dp')
              .att('android:text',element["text"])
-             .att('android:fontFamily',element["fontFamily"])
-             .att('android:fontStyle',element["fontStyle"])
              .att('android:textSize',element["fontSize"]+"dp" )
              .att('android:textColor',"#"+element["textColor"].toString(16) )
-             .att('android:letterSpacing',element["charSpacing"] )
              .att('android:ltextAlign',element["textAlign"] )
              .att('app:layout_constraintStart_toStartOf','parent')
              .att('app:layout_constraintTop_toTopOf','parent')
@@ -77,7 +74,6 @@ class CheckBox extends Widget{
              .att('android:layout_marginStart',element["x"]+"dp")
              .att('android:layout_marginTop',element["y"]+"dp")
              .att('android:layout_marginEnd',element["marginRight"]+"dp" )
-             .att('android:background','@drawable/shape'+element[".id"])
               .up()
               // android:layout_marginLeft="40dp"
               // android:layout_marginTop="8dp"
