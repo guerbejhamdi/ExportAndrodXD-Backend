@@ -13,7 +13,11 @@ class Button extends Widget{
    
  
       Parsejsontoxml(element,doc,shapeDoc) {
-            var testShape = __dirname +process.env.DIR_PATH_SHAPES+"shape"+element[".id"]+".xml";
+            var shapename = "shape"+element[".id"]+".xml";
+            var shapetolower = shapename.toLowerCase()
+            var shapenamexml = "shape"+element[".id"];
+            var shapexmltolower = shapenamexml.toLowerCase()
+            var testShape = __dirname +process.env.DIR_PATH_SHAPES+shapetolower;
             var dirCopyPath = __dirname + process.env.DIR_COPYPATH ;
             var dirPastLivePath = __dirname + process.env.DIR_PASTLIVE_PATH;
             var dirPastLiveShapesPath = __dirname + process.env.DIR_PASTLIVE_SHAPES_PATH;
@@ -138,9 +142,10 @@ class Button extends Widget{
             console.log("The shapes xml file was saved!".red.underline.bold);
 
                 //COPYING FILES AFTER GENERATION
-                fs.copyFile(dirCopyPathShapes+"shape"+element[".id"]+".xml", dirPastLiveShapesPath+"shape"+element[".id"]+".xml", (err) => {
+                fs.copyFile(dirCopyPathShapes+shapetolower, dirPastLiveShapesPath+shapetolower, (err) => {
                   if (err) throw err;
                   console.log(dirCopyPathShapes);
+                  console.log(shapetolower)
                   console.log(dirPastLiveShapesPath+element[".id"]);
                   console.log('SHAPE XML was copied to project drawable folder!'.green.underline.bold );
                 });
