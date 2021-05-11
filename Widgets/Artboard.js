@@ -33,7 +33,10 @@ class ArtBoard extends Widget{
 
     Parsesontoxml(artBoard) {
 
-      if(artBoard["isScrollable"]==true){
+      if(true){
+        //artBoard["isScrollable"]==
+
+
         // var doc = builder.create('ScrollView')
         // .att('xmlns:android', 'http://schemas.android.com/apk/res/android')
         // .att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
@@ -106,14 +109,15 @@ class ArtBoard extends Widget{
 
     });*/
 
-    if(artBoard["isScrollable"]==true){
-
+    if(true){
+     // artBoard["isScrollable"]==
       var scrollView = builder.create('ScrollView')
         .att('xmlns:android', 'http://schemas.android.com/apk/res/android')
         .att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
         .att('xmlns:tools', 'http://schemas.android.com/tools')
+        .att('android:fillViewport', 'true')
         .att('android:layout_width', 'match_parent')
-        .att('android:layout_height', artBoard["scrollViewtHeight"]+"dp");
+        .att('android:layout_height', 'match_parent');
 
         doc=scrollView.importDocument(doc);
 

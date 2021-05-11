@@ -70,7 +70,7 @@ class Switch extends Widget{
              .att('android:text',element["text"])
              .att('android:textSize',element["fontSize"]+"dp" )
              .att('android:textColor',"#"+element["textColor"].toString(16) )
-             .att('android:ltextAlign',element["textAlign"] )
+       
              .att('app:layout_constraintStart_toStartOf','parent')
              .att('app:layout_constraintTop_toTopOf','parent')
              .att('app:layout_constraintEnd_toEndOf','parent')

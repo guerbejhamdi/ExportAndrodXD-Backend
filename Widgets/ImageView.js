@@ -29,19 +29,30 @@ class ImageView extends Widget{
     
       Parsejsontoxml(element,doc) {
         if(element[".adobeClass"]=="Rectangle"){
-              doc.ele('ImageView')
-              .att('android:id', '@+id/'+element[".id"])
-             .att('android:layout_width',+element["width"]+"dp")
-             .att('android:layout_height', +element["height"]+"dp")
-             .att('android:src', '@drawable/'+element[".id"])
-             .att('app:layout_constraintStart_toStartOf','parent')
-             .att('app:layout_constraintTop_toTopOf','parent')
-             .att('app:layout_constraintEnd_toEndOf','parent')
-             .att('android:layout_marginStart',element["x"]+"dp")
-             .att('android:layout_marginTop',element["y"]+"dp")
-             .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
+          let item=doc.ele('ImageView');
+              
+          item.att('android:id', '@+id/'+element[".id"])
+          item.att('android:layout_width',+element["width"]+"dp")
+          item.att('android:layout_height', +element["height"]+"dp")
+          item.att('android:src', '@drawable/'+element[".id"])
+          item.att('app:layout_constraintStart_toStartOf','parent')
+          item.att('app:layout_constraintTop_toTopOf','parent')
+ 
+          item.att('android:layout_marginStart',element["x"]+"dp")
+          item.att('android:layout_marginTop',element["y"]+"dp")
 
-              .up()
+          if(element["marginRight"]!=undefined){
+            item.att('app:layout_constraintEnd_toEndOf','parent');
+            item.att('android:layout_marginEnd',element["marginRight"]+"dp" ) ;
+           }
+            
+           if(element["marginBottom"]!=undefined){
+            item.att('app:layout_constraintBottom_toBottomOf','parent');
+            item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
+          }
+     
+
+          item  .up()
 
            
          

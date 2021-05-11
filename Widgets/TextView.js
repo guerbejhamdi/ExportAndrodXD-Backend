@@ -29,30 +29,37 @@ class TextView extends Widget{
     
       Parsejsontoxml(element,doc) {
         if(element[".adobeClass"]=="Text"){
-              doc.ele('TextView')
-              .att('android:id', '@+id/'+element[".id"])
-             .att('android:layout_width','wrap_content')
-             .att('android:layout_height', 'wrap_content')
-             .att('android:text',element["text"] )
-             .att('android:textSize',element["fontSize"]+"dp" )
+            let item=  doc.ele('TextView')
+            item.att('android:id', '@+id/'+element[".id"])
+            item.att('android:layout_width','wrap_content')
+            item.att('android:layout_height', 'wrap_content')
+            item.att('android:text',element["text"] )
+            item.att('android:textSize',element["fontSize"]+"dp" )
               
 
 
-             .att('android:textColor',"#"+element["textColor"].toString(16) )
-             .att('android:letterSpacing',element["charSpacing"] )
-             .att('android:gravity',element["textAlign"] )
+            item.att('android:textColor',"#"+element["textColor"].toString(16) )
+            item.att('android:letterSpacing',element["charSpacing"] )
+            item.att('android:gravity',element["textAlign"] )
 
 
+            item.att('app:layout_constraintStart_toStartOf','parent')
+            item.att('app:layout_constraintTop_toTopOf','parent')
+    
+            item.att('android:layout_marginStart',element["x"]+"dp")
+            item.att('android:layout_marginTop',element["y"]+"dp")
 
 
-
-             .att('app:layout_constraintStart_toStartOf','parent')
-             .att('app:layout_constraintTop_toTopOf','parent')
-             .att('app:layout_constraintEnd_toEndOf','parent')
-             .att('android:layout_marginStart',element["x"]+"dp")
-             .att('android:layout_marginTop',element["y"]+"dp")
-             .att('android:layout_marginEnd',element["marginRight"]+"dp" ) 
-              .up()
+             if(element["marginRight"]!=undefined){
+              item.att('app:layout_constraintEnd_toEndOf','parent');
+              item.att('android:layout_marginEnd',element["marginRight"]+"dp" ) ;
+             }
+              
+             if(element["marginBottom"]!=undefined){
+              item.att('app:layout_constraintBottom_toBottomOf','parent');
+              item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
+            }
+            item.up()
 
             //   jsonObj["fontFamily"]=text.fontFamily ;
             //   jsonObj["fontStyle"]=text.fontStyle ;
