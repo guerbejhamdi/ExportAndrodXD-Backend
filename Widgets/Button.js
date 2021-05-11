@@ -15,8 +15,6 @@ class Button extends Widget{
       Parsejsontoxml(element,doc,shapeDoc) {
             var shapename = "shape"+element[".id"]+".xml";
             var shapetolower = shapename.toLowerCase()
-            var shapenamexml = "shape"+element[".id"];
-            var shapexmltolower = shapenamexml.toLowerCase()
             var testShape = __dirname +process.env.DIR_PATH_SHAPES+shapetolower;
             var dirCopyPath = __dirname + process.env.DIR_COPYPATH ;
             var dirPastLivePath = __dirname + process.env.DIR_PASTLIVE_PATH;
@@ -51,7 +49,10 @@ class Button extends Widget{
             item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
              }
        
-            item.att('android:background','@drawable/shape'+element[".id"]);
+             var shapenamexml = "shape"+element[".id"];
+             var shapexmltolower = shapenamexml.toLowerCase()
+ 
+            item.att('android:background','@drawable/'+shapexmltolower);
             item.up();
             // android:layout_marginLeft="40dp"
             // android:layout_marginTop="8dp"
@@ -81,8 +82,12 @@ class Button extends Widget{
                   item.att('app:layout_constraintBottom_toBottomOf','parent');
                   item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
                 }
+
+                var shapenamexml = "shape"+element[".id"];
+                var shapexmltolower = shapenamexml.toLowerCase()
+    
            
-            item.att('android:background','@drawable/shape'+element[".id"]);
+            item.att('android:background','@drawable/'+shapexmltolower);
             item.up();
           
 
