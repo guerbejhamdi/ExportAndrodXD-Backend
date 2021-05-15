@@ -5,6 +5,7 @@ var builder = require('xmlbuilder');
 var fs  = require('fs');
 const bodyParser = require("body-parser");
 const XmlBuilder = require('./Utils/XmlBuilder');
+
 const logger = require('./Utils/Logger');
 const dotenv = require('dotenv');
 
@@ -17,7 +18,7 @@ const download = require('download');
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const fsExtra = require('fs-extra')
 
-
+const Utils = require('./Utils/Utils');
 
 //
 var archiver = require('archiver');
@@ -238,6 +239,7 @@ const TextView = require('./Widgets/TextView');
 const ArtBoard = require('./Widgets/Artboard');
 const { element } = require('./Utils/XmlBuilder');
 const { auth } = require('googleapis/build/src/apis/abusiveexperiencereport');
+const JavaGen = require('./Utils/JavaGen');
 
 const port = process.env.PORT || 3000;
 
@@ -247,6 +249,7 @@ app.post("/ExportToXml",(req,res)=>{
     console.log("METHOD"+req.method);
     console.log("PROTOCOL"+req.protocol);
     console.log("URL"+req.url);
+    global.nbAdapter="1";
 
     //Fixing space problem
     const escapeFunc = function(str) {
@@ -260,7 +263,6 @@ app.post("/ExportToXml",(req,res)=>{
     
     //INITING PROJECT
 
-   
     var builder = require('xmlbuilder');
     var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
 
@@ -485,14 +487,17 @@ var output = "ClientProject.zip";
   //deleting files
   var test = __dirname +process.env.DIR_PATH_ARTBOARD
   console.log(test)
-  fsExtra.emptyDirSync('D:/PIM/public/xmlfiles/')
+  fsExtra.emptyDirSync('C:/Users/Letaief Sofiene/Desktop/Export Andro Backend/public/xmlfiles/')
 
   //fsExtra.emptyDirSync(__dirname+'/public/xmlfiles/')
   fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/layout/')
   fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/drawable/')
+  fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/res/javaclasses/')
   fsExtra.emptyDirSync(__dirname+'/public/xmlfiles')
-  fsExtra.emptyDirSync('D:/PIM/public/javaclasses/')
-  fsExtra.emptyDirSync('D:/PIM/public/shapesxml/')
+  
+  fsExtra.emptyDirSync('C:/Users/Letaief Sofiene/Desktop/Export Andro Backend/public/javaclasses/')
+  fsExtra.emptyDirSync('C:/Users/Letaief Sofiene/Desktop/Export Andro Backend/public/shapesxml/')
+  fsExtra.emptyDirSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/app/src/main/java/com/example/autogen/')
 
   //require('child_process').execSync('rm -rf '+dirPastLivePath+"*")
    res.send(fileUrl);
@@ -500,8 +505,9 @@ var output = "ClientProject.zip";
   // fs.unlinkSync(__dirname+'/fileId.txt')
    fs.unlinkSync(__dirname+'/GeneratedProjects/UnzippedProject/AutoGen/GeneratedProject.zip')
 
-   //fsExtra.emptyDirSync(__dirname+'/drivelink.txt')
-  // fsExtra.emptyDirSync(__dirname+'/fileId.txt')
+   fs.unlinkSync(__dirname+'/drivelink.txt');
+   fs.unlinkSync(__dirname+'/fileId.txt');
+   
  
 });  
 
@@ -659,19 +665,91 @@ app.post('/GenerateRecycler', function (req, res) {
 
   const AdapterName = req.get('adapter_name');
   const ModelName = req.get('model_name');
+  data = req.body
+  let element = JSON.parse(JSON.stringify(data));
+
+
+  console.log(element);  
+
+
+  var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
+  doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android');
+  doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto');
+  doc.att('xmlns:tools', 'http://schemas.android.com/tools');
+  doc.att('android:layout_width', 'match_parent');
+  doc.att('android:layout_height', 'match_parent'); 
+
+
+  let item= doc.ele("androidx.recyclerview.widget.RecyclerView");
+  item.att('android:id', '@+id/adapter1');
+  item.att('android:layout_width', element["width"]+"dp");
+  item.att('android:layout_height',element["height"]+"dp" ); 
+  item.att('app:layout_constraintStart_toStartOf','parent');
+  item.att('app:layout_constraintTop_toTopOf','parent');
+  item.att('android:layout_marginStart',element["x"]+"dp");
+  item.att('android:layout_marginTop',element["y"]+"dp");
+  if(element["marginRight"]!=undefined){
+    item.att('app:layout_constraintEnd_toEndOf','parent');
+    item.att('android:layout_marginEnd',element["marginRight"]+"dp" ) ;
+           }
+
+
+var row = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
+row.att('xmlns:android', 'http://schemas.android.com/apk/res/android');
+row.att('xmlns:app', 'http://schemas.android.com/apk/res-auto');
+row.att('xmlns:tools', 'http://schemas.android.com/tools');
+row.att('android:layout_width', element["cellSize"]["width"]+"dp");
+row.att('android:layout_height',  element["cellSize"]["height"]+"dp");
 
 
 
-  fs.readFile('./RecyclerModel/BaseAdapter.txt', 'utf8', function (err,data) {
+element.children.forEach(child => {
+
+  Utils.ParseByAndroidClass(child,child[".class"],row);
+      
+});
+
+
+
+
+row =row.toString({ pretty: true })
+
+
+ doc =doc.toString({ pretty: true })
+  
+ fs.writeFile(dirPastRecyclerPath+"testRec"+".xml", doc, 'utf8', function (err) {
+  if (err) return console.log(err);
+
+  
+/* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
+if (err) 
+   throw err;
+
+console.log('Java class copied!');
+});*/
+
+});
+  
+fs.writeFile(dirPastRecyclerPath+"testRow"+".xml", row, 'utf8', function (err) {
+  if (err) return console.log(err);
+
+});
+
+
+  
+  fs.readFile('./RecyclerModel/ClassModel.txt', 'utf8', function (err,data) {
     if (err) {
       return console.log(err);
     }
-    var result = data.replace(/BaseAdapter/g, AdapterName)
-    .replace(/MyListData/g, ModelName)
-    ;
-    
+    // data = data.replace(/\/\/Attribute/g, "this is a test \n --tag");
+    // data= data.replace(/--tag/g, "this is a test \n --tag");;
+    // data= data.replace(/--tag/g, "this is a test \n --tag");;
+      console.log(JavaGen.generateAttribute("int","number"));
+      console.log(JavaGen.generateGetter("int","number"));
+      console.log(JavaGen.generateSetter("int","number"));
+    var result=  data.replace("ClassName", "this is a test \n");
   
-    fs.writeFile(dirPastRecyclerPath+AdapterName+".java", result, 'utf8', function (err) {
+    fs.writeFile(dirPastRecyclerPath+"test"+".java", result, 'utf8', function (err) {
        if (err) return console.log(err);
 
        
@@ -687,26 +765,68 @@ app.post('/GenerateRecycler', function (req, res) {
 
 
 
-  fs.readFile('./RecyclerModel/MyModel.txt', 'utf8', function (err,data) {
-    if (err) {
-      return console.log(err);
-    }
-    var result = data.replace(/MyModel/g, ModelName);
+
+
+
+
+
+
+
+
+
+
+//   fs.readFile('./RecyclerModel/BaseAdapter.txt', 'utf8', function (err,data) {
+//     if (err) {
+//       return console.log(err);
+//     }
+//     var result = data.replace(/BaseAdapter/g, AdapterName)
+//     .replace(/MyListData/g, ModelName);
     
-  
-    fs.writeFile(dirPastRecyclerPath+ModelName+".java", result, 'utf8', function (err) {
-       if (err) return console.log(err);
+    
+
+
+
+//     fs.writeFile(dirPastRecyclerPath+AdapterName+".java", result, 'utf8', function (err) {
+//        if (err) return console.log(err);
 
        
- /* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
-    if (err) 
-        throw err;
+//  /* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
+//     if (err) 
+//           throw err;
 
-    console.log('Java class copied!');
-  });*/
+//     console.log('Java class copied!');
+//   });*/
 
-    });
-  });
+//     });
+//   });
+
+
+
+
+
+
+
+
+//   fs.readFile('./RecyclerModel/MyModel.txt', 'utf8', function (err,data) {
+//     if (err) {
+//       return console.log(err);
+//     }
+//     var result = data.replace(/MyModel/g, ModelName);
+    
+  
+//     fs.writeFile(dirPastRecyclerPath+ModelName+".java", result, 'utf8', function (err) {
+//        if (err) return console.log(err);
+
+       
+//  /* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
+//     if (err) 
+//         throw err;
+
+//     console.log('Java class copied!');
+//   });*/
+
+//     });
+//   });
 
 
 

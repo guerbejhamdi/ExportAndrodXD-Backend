@@ -1,0 +1,26 @@
+
+
+package com.example.autogen;
+
+public class ClassName{  
+
+
+    //Attribute
+
+
+
+    --Getter
+
+
+
+
+   --Setter
+
+
+    public ClassName(--parms) {  
+
+        --ContentConstra
+    
+    }  
+
+}  
