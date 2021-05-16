@@ -668,8 +668,8 @@ app.post('/GenerateRecycler', function (req, res) {
   data = req.body
   let element = JSON.parse(JSON.stringify(data));
 
+  global.nbAdapter="1";
 
-  console.log(element);  
 
 
   var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
@@ -699,7 +699,9 @@ row.att('xmlns:android', 'http://schemas.android.com/apk/res/android');
 row.att('xmlns:app', 'http://schemas.android.com/apk/res-auto');
 row.att('xmlns:tools', 'http://schemas.android.com/tools');
 row.att('android:layout_width', element["cellSize"]["width"]+"dp");
-row.att('android:layout_height',  element["cellSize"]["height"]+"dp");
+row.att('android:layout_height',  (element["cellSize"]["height"]+element["paddingY"])+"dp");
+
+
 
 
 
@@ -709,24 +711,17 @@ element.children.forEach(child => {
       
 });
 
+const  javaRes=JavaGen.generateModelClass(element);
 
+
+nbAdapter++;
 
 
 row =row.toString({ pretty: true })
-
-
- doc =doc.toString({ pretty: true })
+doc =doc.toString({ pretty: true })
   
  fs.writeFile(dirPastRecyclerPath+"testRec"+".xml", doc, 'utf8', function (err) {
   if (err) return console.log(err);
-
-  
-/* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
-if (err) 
-   throw err;
-
-console.log('Java class copied!');
-});*/
 
 });
   
@@ -734,34 +729,13 @@ fs.writeFile(dirPastRecyclerPath+"testRow"+".xml", row, 'utf8', function (err) {
   if (err) return console.log(err);
 
 });
+// fs.writeFile(dirPastRecyclerPath+"testJava"+".java", javaRes, 'utf8', function (err) {
+//   if (err) return console.log(err);
 
 
-  
-  fs.readFile('./RecyclerModel/ClassModel.txt', 'utf8', function (err,data) {
-    if (err) {
-      return console.log(err);
-    }
-    // data = data.replace(/\/\/Attribute/g, "this is a test \n --tag");
-    // data= data.replace(/--tag/g, "this is a test \n --tag");;
-    // data= data.replace(/--tag/g, "this is a test \n --tag");;
-      console.log(JavaGen.generateAttribute("int","number"));
-      console.log(JavaGen.generateGetter("int","number"));
-      console.log(JavaGen.generateSetter("int","number"));
-    var result=  data.replace("ClassName", "this is a test \n");
-  
-    fs.writeFile(dirPastRecyclerPath+"test"+".java", result, 'utf8', function (err) {
-       if (err) return console.log(err);
+// });
 
-       
- /* fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
-    if (err) 
-        throw err;
 
-    console.log('Java class copied!');
-  });*/
-
-    });
-  });
 
 
 

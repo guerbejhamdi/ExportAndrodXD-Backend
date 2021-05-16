@@ -7,20 +7,21 @@ public class ClassName{
 
     //Attribute
 
+    public ClassName(//parms) {  
+
+        //ContentConstra
+    } 
+
+    //Getter   
+
+    //Setter
 
 
-    --Getter
 
 
 
 
-   --Setter
 
-
-    public ClassName(--parms) {  
-
-        --ContentConstra
-    
-    }  
+   
 
 }  
