@@ -1,0 +1,62 @@
+package com.example.autogen;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+
+
+public class AdapterName extends RecyclerView.Adapter<AdapterName.ViewHolder> {
+
+    private Context mContext;
+    private List<ClassName> data;
+
+    public AdapterName(Context mContext, List<ClassName> data) {
+        this.mContext = mContext;
+        this.data = data;
+    }
+
+
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.rowName, parent, false);
+        return new AdapterName.ViewHolder(itemView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+
+        final ClassName singleItem = data.get(position);
+        //BindView
+  
+
+    }
+
+    @Override
+    public int getItemCount() {
+
+        return data != null ? data.size() : 0;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        //viewHolderAttribute
+
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            //viewHolderContent
+        
+
+        }
+
+
+    }
+
+}

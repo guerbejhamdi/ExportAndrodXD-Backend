@@ -668,8 +668,8 @@ app.post('/GenerateRecycler', function (req, res) {
   data = req.body
   let element = JSON.parse(JSON.stringify(data));
 
-  global.nbAdapter="1";
-
+  global.nbIter="1";
+  let nb=nbIter;
 
 
   var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
@@ -711,10 +711,11 @@ element.children.forEach(child => {
       
 });
 
-const  javaRes=JavaGen.generateModelClass(element);
+JavaGen.generateModelClass(element,nb);
+JavaGen.generateAdapter(element,nb);
 
 
-nbAdapter++;
+global.nbIter=(++global.nbIter);
 
 
 row =row.toString({ pretty: true })
