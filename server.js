@@ -265,7 +265,8 @@ app.post("/ExportToXml",(req,res)=>{
 
     var builder = require('xmlbuilder');
     var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
-
+    global.nbIter="1";
+    
     doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
     doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
     doc.att('xmlns:tools', 'http://schemas.android.com/tools')
@@ -704,7 +705,6 @@ row.att('android:layout_height',  (element["cellSize"]["height"]+element["paddin
 
 
 
-
 element.children.forEach(child => {
 
   Utils.ParseByAndroidClass(child,child[".class"],row);
@@ -713,6 +713,12 @@ element.children.forEach(child => {
 
 JavaGen.generateModelClass(element,nb);
 JavaGen.generateAdapter(element,nb);
+
+
+// console.log(JavaGen.generateRecyclerImport());
+// console.log(JavaGen.generateRecyclerAttributs(nb));
+// console.log(JavaGen.generateRecyclerCode(element,nb));
+
 
 
 global.nbIter=(++global.nbIter);

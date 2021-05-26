@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 
 var fs  = require('fs');
 const Utils = require('../Utils/Utils');
+const JavaGen = require('../Utils/JavaGen');
 
 
 var dirCopyPath = __dirname + process.env.DIR_COPYPATH ;
@@ -33,84 +34,32 @@ class ArtBoard extends Widget{
 
     Parsesontoxml(artBoard) {
 
-      if(true){
-        //artBoard["isScrollable"]==
 
-
-        // var doc = builder.create('ScrollView')
-        // .att('xmlns:android', 'http://schemas.android.com/apk/res/android')
-        // .att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
-        // .att('xmlns:tools', 'http://schemas.android.com/tools')
-        // .att('android:layout_width', 'match_parent')
-        // .att('android:layout_height', artBoard["scrollViewtHeight"]+"dp")
-        // .ele('title', { 'type': 'text'}, ' ').up()
-        // .ele('androidx.constraintlayout.widget.ConstraintLayout', { 'android:layout_width': 'match_parent','android:layout_height':'match_parent'},' ').up();
-
-        // doc.ele('androidx.constraintlayout.widget.ConstraintLayout')
-        // .att('android:layout_width', 'match_parent')
-        // .att('android:layout_height', 'match_parent');
 
         var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
         doc.att('android:layout_width', 'match_parent');
         doc.att('android:layout_height', 'match_parent');
         doc.att('android:background','#'+artBoard["background"].toString(16)) 
     
-        
-
-      }else {
-
-       
-
-
-        var doc = builder.create('androidx.constraintlayout.widget.ConstraintLayout');
-        doc.att('xmlns:android', 'http://schemas.android.com/apk/res/android');
-        doc.att('xmlns:app', 'http://schemas.android.com/apk/res-auto');
-        doc.att('xmlns:tools', 'http://schemas.android.com/tools');
-        doc.att('android:layout_width', 'match_parent');
-        doc.att('android:layout_height', 'match_parent'); 
-        doc.att('tools:context', '.MainActivity');
-        doc.att('android:background','#'+artBoard["background"].toString(16)) 
-        
-
-
-      }
-
-      
-      // var shapeDoc = builder.create('shape');
-      // shapeDoc.att('xmlns:android', 'http://schemas.android.com/apk/res/android')
-      // shapeDoc.att('android:shape', 'rectangle')
-      // shapeDoc.att('android:padding', '15dp')
-        
-        // if(artBoard["background"]!=null){
-        //   shapeDoc.att('android:background', "#"+artBoard["background"].toString(16))
-        // } 
-
-  
+     
 
         doc.toString({ pretty: true })
-       
+ 
+        global.codeActivity = "" ;
+        global.importActivity = "" ;
+        global.attributeActivity = "" ;
 
        artBoard.children.forEach(element => {
 
-        Utils.ParseByAndroidClass(element,element[".class"],doc);
+     Utils.ParseByAndroidClass(element,element[".class"],doc);
             
       });
       
-      
-      /* }).after(()=>{
-      if(artBoard["isScrollable"]==true){
 
-        doc.up();
-
-      }
+ 
 
 
-
-
-    });*/
-
-    if(true){
-     // artBoard["isScrollable"]==
+  
       var scrollView = builder.create('ScrollView')
         .att('xmlns:android', 'http://schemas.android.com/apk/res/android')
         .att('xmlns:app', 'http://schemas.android.com/apk/res-auto')
@@ -122,20 +71,14 @@ class ArtBoard extends Widget{
         doc=scrollView.importDocument(doc);
 
 
-    }
-    // var test = builder.create('test').att("key","value");
-    // //test.com("hello");
-
-    // doc=test.importDocument(doc);
-    doc =doc.toString({ pretty: true })
-    // shapeDoc=shapeDoc.toString({ pretty: true })
+     doc =doc.toString({ pretty: true })
 
 
 
     var test = __dirname +process.env.DIR_PATH_ARTBOARD+artBoard["name"];
-    var testShape = __dirname +process.env.DIR_PATH_SHAPES+"Shape"+artBoard["name"];
 
-    console.log(test);
+
+ 
         fs.writeFile(test, doc, function(err) {
 
             if(err) { return console.log(err); } 
@@ -162,6 +105,10 @@ class ArtBoard extends Widget{
             throw err;
         console.log('Java txt copied!');
       });*/
+      const code=codeActivity;
+      const importCode=importActivity;
+      const attributes=attributeActivity;
+
 
 
       fs.readFile('./BaseActivity.txt', 'utf8', function (err,data) {
@@ -171,18 +118,26 @@ class ArtBoard extends Widget{
         var result = data.replace(/BaseActivity/g, capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity"))
         .replace(/activity_name/g, artBoard["name"].replace('.xml',''))
         ;
+
+          result=result.replace("//code",code);
+          result=result.replace("//attributes",attributes);
+          result=result.replace("//import",importCode);
+          
         
+         codeActivity = "" ;
+         importActivity = "" ;
+         attributeActivity = "" ;
       
-        fs.writeFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", result, 'utf8', function (err) {
+        fs.writeFile(dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), result, 'utf8', function (err) {
            if (err) return console.log(err);
 
            
-      fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
-        if (err) 
-            throw err;
+      // fs.copyFile(dirPastJavaTxtPath+artBoard["name"].replace('.xml','')+"Activity.java", dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), (err) => {
+      //   if (err) 
+      //       throw err;
 
-        console.log('Java class copied!');
-      });
+      //   console.log('Java class copied!');
+      // });
 
         });
       });

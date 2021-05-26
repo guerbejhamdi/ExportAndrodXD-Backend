@@ -8,7 +8,7 @@ const ScrollView = require('../Widgets/ScrollView');
 const Relativelayout = require('../Widgets/Relativelayout');
 const Switch = require('../Widgets/Switch');
 const CheckBox = require('../Widgets/CheckBox');
-
+const RecyclerView = require('../Widgets/RecyclerView');
 
 class Utils{
 
@@ -36,9 +36,12 @@ static ParseByAndroidClass(element,typeWidget,doc) {
     }else if(typeWidget=="CheckBox"){ 
       console.log("eni CheckBox");
       new CheckBox().Parsejsontoxml(element,doc);
-    } if(typeWidget=="ScrollView"){ 
+    }else if(typeWidget=="ScrollView"){ 
       console.log("eni ScrollView");
       new ScrollView().Parsejsontoxml(element,doc); 
+    }else if(typeWidget=="RecyclerViewer"){ 
+      console.log("eni RecyclerViewer");
+      new RecyclerView().Parsejsontoxml(element,doc); 
     }
     
     else{

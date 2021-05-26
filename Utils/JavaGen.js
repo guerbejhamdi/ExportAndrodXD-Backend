@@ -12,7 +12,7 @@ class JavaGen {
 
     static generateModelClass(recycler, iter) {
 
-        var dirPastRecyclerPath = __dirname + process.env.DIR_PASTE_CLASS_MODEL_PATH;
+        var dirPastRecyclerPath = __dirname + process.env.DIR_PASTE_JAVACLASS_PATH;
 
 
         fs.readFile('./RecyclerModel/ClassModel.txt', 'utf8', function (err, data) {
@@ -59,7 +59,7 @@ class JavaGen {
 
     static generateAdapter(recycler, iter) {
 
-        var dirPastRecyclerPath = __dirname + process.env.DIR_PASTE_CLASS_MODEL_PATH;
+        var dirPastRecyclerPath = __dirname + process.env.DIR_PASTE_JAVACLASS_PATH;
 
         fs.readFile('./RecyclerModel/AdapterModel.txt', 'utf8', function (err, data) {
 
@@ -89,7 +89,7 @@ class JavaGen {
             fs.writeFile(dirPastRecyclerPath + name + ".java", data, 'utf8', function (err) {
                 if (err) return console.log(err);
 
-                console.log(nbClass);
+               
 
             });
 
@@ -99,6 +99,40 @@ class JavaGen {
 
     }
 
+    static generateRecyclerImport(){
+        return "import androidx.recyclerview.widget.LinearLayoutManager;\n"+
+        "import androidx.recyclerview.widget.RecyclerView;\n"+
+        "import java.util.ArrayList;\n";
+    }
+
+
+    static generateRecyclerAttributs(iter){
+        return "    private RecyclerView recyclerView;\n"+
+        "    private Adapter"+iter+" adapter"+iter+";";
+    }
+
+
+    static generateRecyclerCode(recycler,iter){
+      
+
+        let instances=   generateData(recycler,iter);
+
+        return "        ArrayList<Class"+iter+"> data = new ArrayList();\n"+
+        "        recyclerView =findViewById(R.id.recycler"+iter+");\n"+
+        "        recyclerView.setHasFixedSize(true);\n"+
+        instances+
+        "        "+"adapter"+iter+" = "+" new Adapter"+iter+"(this,data);\n"+
+        "        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);\n"+
+        "        recyclerView.setLayoutManager(layoutManager);\n"+
+        "        recyclerView.setAdapter(adapter"+iter+");\n";
+
+
+        // ArrayList<ClassName> data = new ArrayList();
+        // recyclerView =findViewById(R.id.recyler);
+        // recyclerView.setHasFixedSize(true);        
+
+        
+    }
 
 }
 function generateCodeAdapterFromElement(element, data) {
@@ -145,7 +179,7 @@ function BindView(element) {
 
 function viewHolderContent(element) {
 
-    return element[".id"] + " = itemView.findViewById(R.id." + element[".id"] + ")";
+    return element[".id"] + " = itemView.findViewById(R.id." + element[".id"] + ");";
 
 
 }
@@ -166,6 +200,43 @@ function generateAttribute(typeAttribute, nameAttribute) {
 
 }
 
+function generateData(recycler,iter){
+
+
+    let allData="";
+    let instance =generateInstanceOfClass(recycler);
+    // console.log(instance)
+    // console.log("        data.add(new Class"+iter+"("+instance+"));\n");
+    for (i = 0; i < recycler["numRows"]; i++) {
+
+        allData=allData+"        data.add(new Class"+iter+"("+instance+"));\n";
+     
+      }
+    //   console.log("hello"+allData+"hi");
+
+return allData;
+
+  
+
+
+}
+function generateInstanceOfClass(recycler) {
+    let instance ="";
+    for (const child of recycler.children) {
+        if(child[".class"]=="ImageView"){
+            instance=instance+",R.drawable."+child[".id"]+"";
+        
+
+
+        }else   if(child[".class"]=="TextView"){
+
+            instance=instance+',"'+child["text"]+'"';
+
+    }
+}
+ return instance.substring(1)
+
+};
 
 
 
