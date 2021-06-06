@@ -48,6 +48,7 @@ class ArtBoard extends Widget{
         global.codeActivity = "" ;
         global.importActivity = "" ;
         global.attributeActivity = "" ;
+        global.intentsActivity="";
 
        artBoard.children.forEach(element => {
 
@@ -108,6 +109,7 @@ class ArtBoard extends Widget{
       const code=codeActivity;
       const importCode=importActivity;
       const attributes=attributeActivity;
+      const intents=intentsActivity;
 
 
 
@@ -122,11 +124,14 @@ class ArtBoard extends Widget{
           result=result.replace("//code",code);
           result=result.replace("//attributes",attributes);
           result=result.replace("//import",importCode);
+          result=result.replace("//intents",intents);
+          
           
         
          codeActivity = "" ;
          importActivity = "" ;
          attributeActivity = "" ;
+         intentsActivity="";
       
         fs.writeFile(dirPastJavaClassPath+capitalizeFirstLetter(artBoard["name"].replace('.xml','')+"Activity.java"), result, 'utf8', function (err) {
            if (err) return console.log(err);
