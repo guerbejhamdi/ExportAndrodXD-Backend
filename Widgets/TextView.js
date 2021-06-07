@@ -39,7 +39,6 @@ class TextView extends Widget{
 
 
             item.att('android:textColor',"#"+element["textColor"].toString(16) )
-            item.att('android:letterSpacing',element["charSpacing"] )
             item.att('android:gravity',element["textAlign"] )
 
 
