@@ -134,6 +134,28 @@ class JavaGen {
         
     }
 
+    static generateNavigationMethode(destination,btnId){
+
+        // public void goToAnActivity(View view) {
+        //     Intent intent = new Intent(this, AnActivity.class);
+        //     startActivity(intent);
+        // }
+
+        return "    public void goTo"+destination+"From"+btnId+"(View view) {\n"+
+          "          Intent intent = new Intent(this,"+destination+".class);\n"+
+          "          startActivity(intent);\n"+
+          "   }\n"
+
+
+    }
+
+    static generateNavigationImport(){
+        return "import android.view.View;\n"+
+        "import android.content.Intent;\n";
+    }
+
+
+
 }
 function generateCodeAdapterFromElement(element, data) {
 
@@ -175,6 +197,8 @@ function BindView(element) {
 }
 
 
+
+android:onClick="goToUpdateProfile"
 
 
 function viewHolderContent(element) {

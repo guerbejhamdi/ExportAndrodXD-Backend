@@ -3,6 +3,7 @@ var builder = require('xmlbuilder');
 const dotenv = require('dotenv');
 
 var fs  = require('fs');
+const JavaGen = require('../Utils/JavaGen');
 /**
  * Button.
  *
@@ -43,11 +44,24 @@ class Button extends Widget{
             item.att('app:layout_constraintEnd_toEndOf','parent');
             item.att('android:layout_marginEnd',element["marginRight"]+"dp" ) ;
                    }
-            
+             
            if(element["marginBottom"]!=undefined){
             item.att('app:layout_constraintBottom_toBottomOf','parent');
             item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
              }
+
+             if(element["destination"]!=undefined){
+                  const destination=capitalizeFirstLetter(element["destination"].replace('.xml','')+"Activity");
+                  const methodeName="goTo"+destination+"From"+element[".id"];
+                  item.att('android:onClick',methodeName);
+                  importActivity =importActivity+"\n"+ JavaGen.generateNavigationImport(); 
+                  intentsActivity=intentsActivity+"\n"+
+                   JavaGen.generateNavigationMethode(
+                        destination
+                   ,element[".id"])  ;
+    
+                };
+  
        
              var shapenamexml = "shape"+element[".id"];
              var shapexmltolower = shapenamexml.toLowerCase()
@@ -82,6 +96,17 @@ class Button extends Widget{
                   item.att('app:layout_constraintBottom_toBottomOf','parent');
                   item.att('android:layout_marginBottom',element["marginBottom"]+"dp" ) ;
                 }
+                if(element["destination"]!=undefined){
+                  const destination=capitalizeFirstLetter(element["destination"].replace('.xml','')+"Activity");
+                  const methodeName="goTo"+destination+"From"+element[".id"];
+                  item.att('android:onClick',methodeName);
+                  importActivity =importActivity+"\n"+ JavaGen.generateNavigationImport(); 
+                  intentsActivity=intentsActivity+"\n"+
+                   JavaGen.generateNavigationMethode(
+                        destination
+                   ,element[".id"])  ;
+    
+                };
 
                 var shapenamexml = "shape"+element[".id"];
                 var shapexmltolower = shapenamexml.toLowerCase()
@@ -192,5 +217,11 @@ class Button extends Widget{
 }
 
 
+function capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
 module.exports = Button
+
+
+    
