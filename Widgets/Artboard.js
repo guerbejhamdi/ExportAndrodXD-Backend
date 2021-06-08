@@ -55,7 +55,16 @@ class ArtBoard extends Widget{
      Utils.ParseByAndroidClass(element,element[".class"],doc);
             
       });
+
+      doc.ele('RelativeLayout')
+      .att('android:layout_width', "match_parent")
+      .att('android:layout_height', "0dp")
+      .att('android:layout_marginTop',artBoard["height"]+"dp")
+      .att('app:layout_constraintTop_toTopOf','parent').up()
+
       
+
+
 
  
 
