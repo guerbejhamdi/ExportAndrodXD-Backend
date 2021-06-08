@@ -295,12 +295,38 @@ app.post("/ExportToXml",(req,res)=>{
 
         data = req.body
         let test = JSON.parse(JSON.stringify(data));
-       test.ArtBoard.forEach(element=>{
-       new ArtBoard().Parsesontoxml(element);
+        let xmlActivityManifest="</activity>\n";
+        test.ArtBoard.forEach(element=>{
+          // <activity android:name=".FirstActivity">  </activity>
+          let ArtboardName=capitalizeFirstLetter(element["name"].replace('.xml','')+"Activity");
+          xmlActivityManifest=xmlActivityManifest+'<activity android:name=".'+ArtboardName+'">\n\n </activity>\n';
+          new ArtBoard().Parsesontoxml(element);
   
   
-      })
+      });
+
+      var dirManifest = __dirname + process.env.DIR_MANIFESTFILE_PATH;
+
+      fs.readFile(dirManifest, 'utf8', function (err,data) {
+        if (err) {
+          return console.log(err);
+        }
+
+        
+       var result = data.replace("</activity>", xmlActivityManifest);
+
+  
+   fs.writeFile(dirManifest, result, 'utf8', function (err) {
+       if (err) return console.log(err);
+
+       });
+      });
+
+    
+
+
       
+
       
 
     //
@@ -705,9 +731,11 @@ row.att('android:layout_height',  (element["cellSize"]["height"]+element["paddin
 
 
 
+
 element.children.forEach(child => {
 
   Utils.ParseByAndroidClass(child,child[".class"],row);
+
       
 });
 
@@ -818,3 +846,9 @@ fs.writeFile(dirPastRecyclerPath+"testRow"+".xml", row, 'utf8', function (err) {
 
 
 app.listen(port,console.log(`ExportAndroXD Server running on port:${port} ` .red.underline.bold));
+
+
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
