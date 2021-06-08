@@ -27,7 +27,7 @@ static ParseByAndroidClass(element,typeWidget,doc) {
     }else if(typeWidget=="ImageView"){ 
       console.log("eni ImageView");
       new ImageView().Parsejsontoxml(element,doc); 
-    }else if(typeWidget=="Relativelayout"){ 
+    }else if(typeWidget=="RelativeLayout"){ 
       console.log("eni Relativelayout");
       new Relativelayout().Parsejsontoxml(element,doc);
     }else if(typeWidget=="Switch"){ 

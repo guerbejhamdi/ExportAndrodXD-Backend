@@ -39,10 +39,15 @@ class Relativelayout extends Widget{
              .att('android:layout_height', element["height"]+"dp")
              .att('android:layout_marginStart',element["x"]+"dp")
              .att('android:layout_marginTop',element["y"]+"dp")
-              .up()
-              // android:layout_marginLeft="40dp"
-              // android:layout_marginTop="8dp"
-             
+             .att('android:layout_marginEnd',element["marginRight"]+"dp" )
+             .att('android:background',"#"+element["color"].toString(16) )
+             .att('app:layout_constraintStart_toStartOf','parent')
+             .att('app:layout_constraintTop_toTopOf','parent')
+             .att('app:layout_constraintEnd_toEndOf','parent')
+           
+             .up()
+          
+          
   
   
         }else {
